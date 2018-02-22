@@ -37,14 +37,13 @@ namespace S10ERP_2018.Frontend_Alerta_IOC_SinDOcumentoPago
         {
             MailMessage message = new MailMessage();
             //Lista para envio a Operaciones
-            message.To.Add("epariona@siscoperu.com");
-            message.To.Add("alerta@qlabsp.com");
-            //message.To.Add("arosales@nexcom.com.pe");
-            //message.To.Add("arosales@nexcom.com.pe");
-            //message.Bcc.Add("jcahuana@nexcom.com.pe");
-            //message.Bcc.Add("asilva@nexcom.com.pe");
-            //message.Bcc.Add("klandeo@nexcom.com.pe");
-            //message.Bcc.Add("kvilca@nexcom.com.pe");
+            //message.To.Add("epariona@siscoperu.com");
+            //message.To.Add("alerta@qlabsp.com");
+            message.To.Add("arosales@nexcom.com.pe");
+            message.Bcc.Add("jcahuana@nexcom.com.pe");
+            message.Bcc.Add("asilva@nexcom.com.pe");
+            message.Bcc.Add("klandeo@nexcom.com.pe");
+            message.Bcc.Add("kvilca@nexcom.com.pe");
             //message.Bcc.Add("jramirez@nexcom.com.pe");
 
             //Lista para envio a GAF
@@ -52,21 +51,21 @@ namespace S10ERP_2018.Frontend_Alerta_IOC_SinDOcumentoPago
             //message.Bcc.Add("lperez@nexcom.com.pe");
             //message.Bcc.Add("jguerrero@nexcom.com.pe");
 
-            message.From = new MailAddress("alerta@qlabsp.com", "Guias de Ingreso por OC/S pendientes de regularizar con factura de compra.", Encoding.UTF8);
-            //message.From = new MailAddress("noresponder@nexcom.com.pe", "Guias de Ingreso por OC/S pendientes de regularizar con factura de compra.", Encoding.UTF8);
+            //message.From = new MailAddress("alerta@qlabsp.com", "Guias de Ingreso por OC/S pendientes de regularizar con factura de compra.", Encoding.UTF8);
+            message.From = new MailAddress("noresponder@nexcom.com.pe", "Guias de Ingreso por OC/S pendientes de regularizar con factura de compra.", Encoding.UTF8);
             message.Subject = "Alerta de Control -> Guias de Ingreso por OC/S pendiente de regularizar con factura de compra - 07 dias vencidos.";
             message.SubjectEncoding = Encoding.UTF8;
             message.Body = this.TextoEnvioAlertaGuiasASinFacturar();
             message.BodyEncoding = Encoding.UTF8;
             message.IsBodyHtml = true;
-            SmtpClient client = new SmtpClient("smtp.ipage.com")
-            //SmtpClient client = new SmtpClient("192.168.100.2")
+            //SmtpClient client = new SmtpClient("smtp.ipage.com")
+            SmtpClient client = new SmtpClient("192.168.100.2")
             {
-                Port = 587,
-                Credentials = new System.Net.NetworkCredential("alerta@qlabsp.com", "Alerta$$123"),
-                //Port = 25,
-                Host = "pop.ipage.com"
-                //Host = "192.168.100.2"
+                //Port = 587,
+                //Credentials = new System.Net.NetworkCredential("alerta@qlabsp.com", "Alerta$$123"),
+                Port = 25,
+                //Host = "pop.ipage.com"
+                Host = "192.168.100.2"
             };
             try
             {
