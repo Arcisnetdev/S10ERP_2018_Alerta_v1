@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S10ERP_2018.Backend_Alerta_v1", "S10ERP_2018.Backend_Alerta_v1\S10ERP_2018.Backend_Alerta_v1.csproj", "{D93657E0-61C8-425A-8C31-39489C1A3BB2}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S10ERP_2018.Frontend_Alerta_ETE_ETEP_SeguimientoTransf", "S10ERP_2018.Frontend_Alerta_ETE_ETEP_SeguimientoTransf\S10ERP_2018.Frontend_Alerta_ETE_ETEP_SeguimientoTransf.csproj", "{10C02037-FA25-4CC0-A548-606E1A256AB3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S10ERP_2018.Frontend_Alerta_Kardex_Ceros_y_Negativos", "S10ERP_2018.Frontend_Alerta_Kardex_Ceros_y_Negativos\S10ERP_2018.Frontend_Alerta_Kardex_Ceros_y_Negativos.csproj", "{C0E965CB-2FE7-487F-A97C-15CE4D703F00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S10ERP_2018.Frontend_Alerta_Pedido_Sin_Aprobar", "S10ERP_2018.Frontend_Alerta_Pedido_Sin_Aprobar\S10ERP_2018.Frontend_Alerta_Pedido_Sin_Aprobar.csproj", "{422DAC3B-3BDB-4616-9E1D-71D5891F3276}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{C0E965CB-2FE7-487F-A97C-15CE4D703F00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0E965CB-2FE7-487F-A97C-15CE4D703F00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0E965CB-2FE7-487F-A97C-15CE4D703F00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{422DAC3B-3BDB-4616-9E1D-71D5891F3276}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{422DAC3B-3BDB-4616-9E1D-71D5891F3276}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{422DAC3B-3BDB-4616-9E1D-71D5891F3276}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{422DAC3B-3BDB-4616-9E1D-71D5891F3276}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

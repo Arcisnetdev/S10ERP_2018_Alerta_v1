@@ -72,6 +72,8 @@
     <Compile Include="BE_Data\BE_IOC_SinDocumentoPagos.cs" />
     <Compile Include="BE_Data\BE_Kardex_Ceros_Negativo.cs" />
     <Compile Include="BE_Data\BE_Kardex_Ceros_Negativos.cs" />
+    <Compile Include="BE_Data\BE_Pedido_Sin_Aprobar.cs" />
+    <Compile Include="BE_Data\BE_Pedido_Sin_Aprobars.cs" />
     <Compile Include="BL_Implementation\BL_Impl_ETE_ETEP_SeguimientoTransferencia.cs" />
     <Compile Include="BL_Implementation\BL_Impl_ETE_ETEP_SeguimientoTransferenciaGG.cs" />
     <Compile Include="BL_Implementation\BL_Impl_ETE_ETEP_SeguimientoTransferenciaGG_Interface.cs" />
@@ -80,14 +82,18 @@
     <Compile Include="BL_Implementation\BL_Impl_IOC_SinDocumentoPago_Interface.cs" />
     <Compile Include="BL_Implementation\BL_Impl_Kardex_Ceros_Negativo.cs" />
     <Compile Include="BL_Implementation\BL_Impl_Kardex_Ceros_Negativo_Interface.cs" />
+    <Compile Include="BL_Implementation\BL_Impl_Pedido_Sin_Aprobar.cs" />
+    <Compile Include="BL_Implementation\BL_Impl_Pedido_Sin_Aprobar_Interface.cs" />
     <Compile Include="BL_ObjCOntrol\BL_ObjControl_ETE_ETEP_SeguimientoTransferencia.cs" />
     <Compile Include="BL_ObjCOntrol\BL_OBjControl_ETE_ETEP_SeguimientoTransferenciaGG.cs" />
     <Compile Include="BL_ObjCOntrol\BL_ObjControl_IOC_SinDocumentoPago.cs" />
     <Compile Include="BL_ObjCOntrol\BL_ObjControl_Kardex_Ceros_Negativo.cs" />
+    <Compile Include="BL_ObjCOntrol\BL_ObjCOntrol_Pedido_Sin_Aprobar.cs" />
     <Compile Include="BL_Utils\BL_Utils_ETE_ETEP_SeguimientoTransferencia.cs" />
     <Compile Include="BL_Utils\BL_Utils_ETE_ETEP_SeguimientoTransferenciaGG.cs" />
     <Compile Include="BL_Utils\BL_Utils_IOC_SinDocumentoPago.cs" />
     <Compile Include="BL_Utils\BL_Utils_Kardex_Ceros_Negativo.cs" />
+    <Compile Include="BL_Utils\BL_Utils_Pedido_Sin_Aprobar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
