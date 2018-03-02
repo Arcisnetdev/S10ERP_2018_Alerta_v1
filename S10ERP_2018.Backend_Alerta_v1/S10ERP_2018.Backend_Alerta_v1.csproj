@@ -96,6 +96,19 @@
     <Compile Include="BL_Utils\BL_Utils_Pedido_Sin_Aprobar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="BD_Procedure\Kardex_Cantidades_Cero_Negativos.txt" />
+    <Content Include="BD_Procedure\S10_Pedidos_Sin_Aprobar.txt" />
+    <Content Include="BD_Procedure\S10_Orden_Compra_Sin_Aprobar.txt" />
+    <Content Include="BD_Procedure\S10_GuiasIOC_SinFacturar.txt" />
+    <Content Include="BD_Procedure\S10_Almacenes_ETE_ETEP_SeguimientoTransferencia.txt" />
+    <Content Include="BD_Procedure\S10_Almacenes_001_004_ETE_ETEP_SeguimientoTransferenciaGG.txt" />
+    <Content Include="BD_View\S10_Almacenes_001_003_ETE_ETEP_Seguimiento.txt" />
+    <Content Include="BD_View\S10_Compras_001_001_Pedidos_Por_Aprobar%28AR%29.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BD_View\S10_Almacenes_001_004_Kardex_Cantidades_Ceros_y_Negativos%28AR%29.txt" />
+  </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

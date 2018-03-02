@@ -1,0 +1,45 @@
+﻿USE [INTERFACES]
+GO
+
+/****** Object:  StoredProcedure [dbo].[S10_Pedidos_Sin_Aprobar]    Script Date: 02/03/2018 04:07:53 p.m. ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE  PROCEDURE [dbo].[S10_Pedidos_Sin_Aprobar] 
+	-- Add the parameters for the stored procedure here
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+
+SELECT [CodProyecto],[Proyecto],[CodAlmacen],[Almacen],[NroPedido],[CodEstadoPedido],[Estado],CONVERT(varchar, [FechaPedido], 103) AS [FechaPedido],
+CONVERT(varchar, [CreacionFecha], 100) AS [CreacionFecha],CONVERT(varchar, [ActualizacionFecha], 100) AS [ActualizacionFecha],
+CONVERT(varchar, [FechaAprobacion], 100) AS[FechaAprobacion],[TiempoEntrega],[CreacionUsuario],[UsuarioA],[TomarAlmacen],[Usuario],[CodPedidoInterno],
+[OrdenDeProduccion],[DesEstadoCotizacion],[DesEstadoOrdenCompra],[DesEstadoAlmacen],[CentroCompra],[Observacion]
+FROM [INTERFACES].[dbo].[S10_Compras_001_001_Pedidos_Por_Aprobar(AR)]
+
+END
+
+
+
+GO
+
+

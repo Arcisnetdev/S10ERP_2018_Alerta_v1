@@ -1,0 +1,38 @@
+﻿USE [INTERFACES]
+GO
+
+/****** Object:  View [dbo].[S10_Almacenes_001_004_Kardex_Cantidades_Ceros_y_Negativos(AR)]    Script Date: 02/03/2018 04:02:30 p.m. ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+CREATE VIEW [dbo].[S10_Almacenes_001_004_Kardex_Cantidades_Ceros_y_Negativos(AR)]
+AS
+
+
+SELECT     pr.Descripcion AS PROYECTO, pra.Descripcion AS ALMACEN,
+                          CASE WHEN ga.CodEstadoCierre = '03' THEN 'PROTEGIDO' WHEN ga.CodEstadoCierre = '10' THEN 'ANULADO' WHEN ga.CodEstadoCierre = '01' THEN 'EDICION' END AS ESTADO_GUIA,
+						  vw.CodInsumo AS CODRECURSO, ins.Descripcion AS RECURSO, un.Descripcion AS UNIDAD, 
+                      SUBSTRING(CONVERT(varchar, vw.FechaGuia, 112), 0, 7) AS PERIODO_GUIA, CONVERT(varchar, vw.FechaGuia, 111) AS FECHA_GUIA, vw.CodGuia, 
+                      vw.DescripcionMovimiento AS MOVIMIENTO, vw.SimboloMoneda AS MONEDA, CONVERT(Decimal(20, 4), vw.Cantidad) AS CANTIDAD_GUIA, CONVERT(Decimal(20, 4), 
+                      vw.StockAnterior) AS STOCK_ANTERIOR, CONVERT(Decimal(20, 4), vw.StockActual) AS STOCK_ACTUAL, CONVERT(Decimal(20, 4), vw.PrecioNeto) AS PRECIO, 
+                      ISNULL(vw.ProyectoTransferencia, '') AS PROYECTO_TRANSFERENCIA, ISNULL(vw.AlmacenTransferencia, '') AS ALMACEN_TRANSFERENCIA, vw.CodEstadoCierre, 
+                      pr.Llave
+FROM         NEXCOMS10.dbo.vw_RptStockKardexDetalle AS vw INNER JOIN
+NEXCOMS10.dbo.GuiaAlmacen as ga on vw.NroGuia=ga.NroGuia INNER JOIN
+                      NEXCOMS10.dbo.Proyecto AS pr ON vw.CodProyecto = pr.CodProyecto INNER JOIN
+                      NEXCOMS10.dbo.ProyectoAlmacen AS pra ON vw.CodProyecto = pra.CodProyecto AND vw.CodAlmacen = pra.CodAlmacen INNER JOIN
+                      NEXCOMS10.dbo.Insumo AS ins ON vw.CodInsumo = ins.CodInsumo INNER JOIN
+                      NEXCOMS10.dbo.Unidad AS un ON ins.CodUnidad = un.CodUnidad
+
+WHERE    ga.CodEstadoCierre <> '10' AND pr.Llave = '1' AND ((vw.StockActual < 0) OR (vw.PrecioNeto <= 0) OR (vw.Cantidad <=0))
+--ORDER BY vw.FechaGuia DESC
+
+GO
+
+

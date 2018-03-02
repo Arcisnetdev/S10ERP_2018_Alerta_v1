@@ -1,0 +1,45 @@
+﻿USE [INTERFACES]
+GO
+
+/****** Object:  StoredProcedure [dbo].[S10_Almacenes_001_004_ETE_ETEP_SeguimientoTransferenciaGG]    Script Date: 02/03/2018 04:05:57 p.m. ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[S10_Almacenes_001_004_ETE_ETEP_SeguimientoTransferenciaGG]
+	-- Add the parameters for the stored procedure here
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+select [NOMBREPROYECTO] as Descripcion,case when [Llave]='1' then 'En Ejecucion' when [Llave]='2' then 'Cerrado' end as Estado_Proyecto,
+REPLACE(CONVERT(varchar(20), (CAST(SUM([Parcial]) AS money)), 1), '.00', '')as Total_Pendiente, [Proyecto_Destino]
+
+--CONVERT(Decimal(20, 2),SUM([Parcial])) as Total_Pendiente, [ProyectoDestino]
+
+from [INTERFACES].[dbo].[S10_Almacenes_001_003_ETE_ETEP_Seguimiento(AR)]
+where CodEstadoCierre <> '10' and [CODGUIADESTINO] is null and [GUIARELACION] is null and [FechaGuia_año] >= '2016'
+
+group by [NOMBREPROYECTO],[Llave],[Proyecto_Destino]
+order by  [NOMBREPROYECTO] asc
+
+END
+
+
+GO
+
+

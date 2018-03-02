@@ -1,0 +1,50 @@
+﻿USE [INTERFACES]
+GO
+
+/****** Object:  StoredProcedure [dbo].[S10_GuiasIOC_SinFacturar]    Script Date: 02/03/2018 04:06:55 p.m. ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE  PROCEDURE [dbo].[S10_GuiasIOC_SinFacturar] 
+	-- Add the parameters for the stored procedure here
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+SELECT      p.Descripcion AS Proyecto, ga.NroOrdenCompra as NroOC, ga.DescripcionAlmacen AS Almacen, ga.CodGuia, CONVERT(varchar, ga.FechaGuia, 
+                      103) AS FechaGuia, ISNULL(ga.NumeroGuiaDeRemision, '') AS NroGuiaRemision, ga.Origen AS Proveedor, 
+					  CASE when ga.CodEstadoCierre='01' then 'Edicion' when ga.CodEstadoCierre='03' then 'Protegido' when ga.CodEstadoCierre='10' then 'Anulado' end as EstadoCierre,
+					   gm.Abreviatura as Movimiento, 
+					   mn.Descripcion as Moneda , 
+					   case when ga.FormaDePago is null then 'REGULARIZADO' else ga.FormaDePago end as FormaDePago, 
+					   CONVERT(varchar, CAST(ga.Parcial AS money), 1) as Parcial
+					   
+FROM         NEXCOMS10.dbo.vw_GuiasDeAlmacenes AS ga INNER JOIN
+                      NEXCOMS10.dbo.Proyecto AS p ON ga.CodProyecto = p.CodProyecto  INNER JOIN 
+					  NEXCOMS10.dbo.GuiaAlmacenMovimiento as gm on ga.CodMovimiento=gm.CodMovimiento INNER JOIN
+					  NEXCOMS10.dbo.Moneda as mn on ga.CodMoneda=mn.CodMoneda
+WHERE     (ga.CodMovimiento ='12' or ga.CodMovimiento ='1B')  AND (ga.DocumentoDePago IS NULL) AND (ga.FormaRegularizado IS NULL) and ga.FechaGuia > '01/01/2018'
+and DATEDIFF(DAY, ga.FechaGuia, SYSDATETIME()) >'7' and p.Llave='1' and ga.CodEstadoCierre not in ('10')
+ORDER BY ga.FechaGuia  desc
+							
+END
+
+GO
+
+
