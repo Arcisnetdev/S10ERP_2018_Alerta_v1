@@ -24,26 +24,35 @@ namespace S10ERP_2018.Frontend_Alerta_IOC_SinDOcumentoPago
         private void Frm_IOCSinDocumentoPago_Load(object sender, EventArgs e)
         {
             BE_IOC_SinDocumentoPagos controls = (BE_IOC_SinDocumentoPagos)BL_ObjControl_IOC_SinDocumentoPago.PoblarGuiasSinFacturarSelAll();
+            
+                if (controls.Count > 0)
+                {
+                    this.EnvioAlertaGuiasSinDocumentoDePago();
+                }
+                this.Dispose();
+            
+                this.TextoEnvioFinPrueba();
+                this.Dispose();
 
-            if (controls.Count > 0)
-            {
-                this.EnvioAlertaGuiasSinDocumentoDePago();
-            }
-            this.Dispose();
-        }
+                  }
 
 
         private void EnvioAlertaGuiasSinDocumentoDePago()
         {
+            DateTime DateEnd = Convert.ToDateTime("31/03/2018").Date;
+            DateTime DataStart = DateTime.Now.Date;
+            int result = DateTime.Compare(DataStart, DateEnd);
+            string diaRes = "Quedan: " + (DateEnd.Day - DataStart.Day) + "  dias de prueba. ";
+
             MailMessage message = new MailMessage();
             //Lista para envio a Operaciones
-            //message.To.Add("epariona@siscoperu.com");
-            //message.To.Add("alerta@qlabsp.com");
-            message.To.Add("arosales@nexcom.com.pe");
-            message.Bcc.Add("jcahuana@nexcom.com.pe");
-            message.Bcc.Add("asilva@nexcom.com.pe");
-            message.Bcc.Add("klandeo@nexcom.com.pe");
-            message.Bcc.Add("kvilca@nexcom.com.pe");
+            message.To.Add("epariona@siscoperu.com");
+            message.Bcc.Add("alerta@qlabsp.com");
+            //message.To.Add("arosales@nexcom.com.pe");
+            //message.Bcc.Add("jcahuana@nexcom.com.pe");
+            //message.Bcc.Add("asilva@nexcom.com.pe");
+            //message.Bcc.Add("klandeo@nexcom.com.pe");
+            //message.Bcc.Add("kvilca@nexcom.com.pe");
             //message.Bcc.Add("jramirez@nexcom.com.pe");
 
             //Lista para envio a GAF
@@ -51,21 +60,30 @@ namespace S10ERP_2018.Frontend_Alerta_IOC_SinDOcumentoPago
             //message.Bcc.Add("lperez@nexcom.com.pe");
             //message.Bcc.Add("jguerrero@nexcom.com.pe");
 
-            //message.From = new MailAddress("alerta@qlabsp.com", "Guias de Ingreso por OC/S pendientes de regularizar con factura de compra.", Encoding.UTF8);
-            message.From = new MailAddress("noresponder@nexcom.com.pe", "Guias de Ingreso por OC/S pendientes de regularizar con factura de compra.", Encoding.UTF8);
+            message.From = new MailAddress("alerta@qlabsp.com", diaRes + "  GI por OC/S por regularizar con factura de compra.", Encoding.UTF8);
+            //message.From = new MailAddress("noresponder@nexcom.com.pe", "Guias de Ingreso por OC/S pendientes de regularizar con factura de compra.", Encoding.UTF8);
             message.Subject = "Alerta de Control -> Guias de Ingreso por OC/S pendiente de regularizar con factura de compra - 07 dias vencidos.";
             message.SubjectEncoding = Encoding.UTF8;
-            message.Body = this.TextoEnvioAlertaGuiasASinFacturar();
+            //message.Body = this.TextoEnvioAlertaGuiasASinFacturar();
+
+            if (result <= 0)
+            {
+                message.Body = this.TextoEnvioAlertaGuiasASinFacturar();
+            }
+            else
+            {
+                message.Body = this.TextoEnvioFinPrueba();
+            }
             message.BodyEncoding = Encoding.UTF8;
             message.IsBodyHtml = true;
-            //SmtpClient client = new SmtpClient("smtp.ipage.com")
-            SmtpClient client = new SmtpClient("192.168.100.2")
+            SmtpClient client = new SmtpClient("smtp.ipage.com")
+            //SmtpClient client = new SmtpClient("192.168.100.2")
             {
-                //Port = 587,
-                //Credentials = new System.Net.NetworkCredential("alerta@qlabsp.com", "Alerta$$123"),
-                Port = 25,
-                //Host = "pop.ipage.com"
-                Host = "192.168.100.2"
+                Port = 587,
+                Credentials = new System.Net.NetworkCredential("alerta@qlabsp.com", "Alerta$$123"),
+               // Port = 25,
+                Host = "pop.ipage.com"
+              //  Host = "192.168.100.2"
             };
             try
             {
@@ -125,6 +143,34 @@ namespace S10ERP_2018.Frontend_Alerta_IOC_SinDOcumentoPago
                 //    {
                 //        (enumerator as IDisposable).Dispose();
                 //    }
+            }
+            return (((str + "</table>" + "</div>") + "<hr /><div style='font-size:10px; padding-left:30px; padding-right:30px'>" +
+                "<strong><em>QLABSP Investors</em></strong><br><br>") +
+                //"<strong><em>Nexos Comerciales S.A</em></strong><br><br>") +
+                "<strong>P.D:</strong> Este correo es solo para confirmar el estado de recepcion. Agradeceremos no responderlo.</div> </div>" +
+                "</center></body></html>");
+        }
+
+
+
+        private string TextoEnvioFinPrueba()
+        {
+            string str = "<html>";
+            str = ((((str + "<body><center> " + "<div style='font-size:11px; font-family:Arial; text-align:left; padding:10px; width:850px;'>") +
+                "<br><div style='padding-left:30px; padding-right:30px; text-align:justify'><strong>Estimado(a) usuario(a):</strong>" +
+                "<br>El listado presentado a continuacion son los que deben ser corroborado en ERP S10.") + "</div><br>" +
+                "<div style='font-size:11px; font-family:Arial;background-color:#E8EAEE; padding:20px'>") + "<table width='1300'  cellpadding='3'>" +
+                "<tr><td colspan='2'>") + "<hr /> </td></tr>" +
+              "<td width='700' valign='top' style='text-align:center;background-color:#DDDDDD;font-size:8px; font-family:Arial'>ESTADO_ALERTA</td></tr>";
+            try
+            {
+                {
+                    str = str + "<td width='700' valign='top' style='font-size:12px; font-family:Arial;text-align:center;color:red'> " + 
+                        " Contáctese con soporte a la dirección: arosales@arcisnetdev.com para tener activa la alerta, su período de prueba ha finalizado" + " </td></tr>";
+                }
+            }
+            finally
+            {
             }
             return (((str + "</table>" + "</div>") + "<hr /><div style='font-size:10px; padding-left:30px; padding-right:30px'>" +
                 "<strong><em>QLABSP Investors</em></strong><br><br>") +

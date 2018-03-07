@@ -76,6 +76,8 @@
     <Compile Include="BE_Data\BE_OC_SIn_Aprobars.cs" />
     <Compile Include="BE_Data\BE_Pedido_Sin_Aprobar.cs" />
     <Compile Include="BE_Data\BE_Pedido_Sin_Aprobars.cs" />
+    <Compile Include="BE_Data\BE_Resultado_Operativo_C.cs" />
+    <Compile Include="BE_Data\BE_Resultado_Operativo_Cs.cs" />
     <Compile Include="BL_Implementation\BL_Impl_ETE_ETEP_SeguimientoTransferencia.cs" />
     <Compile Include="BL_Implementation\BL_Impl_ETE_ETEP_SeguimientoTransferenciaGG.cs" />
     <Compile Include="BL_Implementation\BL_Impl_ETE_ETEP_SeguimientoTransferenciaGG_Interface.cs" />
@@ -88,18 +90,22 @@
     <Compile Include="BL_Implementation\BL_Impl_OC_SIn_Aprobar_Interface.cs" />
     <Compile Include="BL_Implementation\BL_Impl_Pedido_Sin_Aprobar.cs" />
     <Compile Include="BL_Implementation\BL_Impl_Pedido_Sin_Aprobar_Interface.cs" />
+    <Compile Include="BL_Implementation\BL_Impl_Resultado_Operativo_C.cs" />
+    <Compile Include="BL_Implementation\BL_Impl_Resultado_Operativo_C_Interface.cs" />
     <Compile Include="BL_ObjCOntrol\BL_ObjControl_ETE_ETEP_SeguimientoTransferencia.cs" />
     <Compile Include="BL_ObjCOntrol\BL_OBjControl_ETE_ETEP_SeguimientoTransferenciaGG.cs" />
     <Compile Include="BL_ObjCOntrol\BL_ObjControl_IOC_SinDocumentoPago.cs" />
     <Compile Include="BL_ObjCOntrol\BL_ObjControl_Kardex_Ceros_Negativo.cs" />
     <Compile Include="BL_ObjCOntrol\BL_ObjControl_OC_SIn_Aprobar.cs" />
     <Compile Include="BL_ObjCOntrol\BL_ObjCOntrol_Pedido_Sin_Aprobar.cs" />
+    <Compile Include="BL_ObjCOntrol\BL_ObjControl_Resultado_Operativo_C.cs" />
     <Compile Include="BL_Utils\BL_Utils_ETE_ETEP_SeguimientoTransferencia.cs" />
     <Compile Include="BL_Utils\BL_Utils_ETE_ETEP_SeguimientoTransferenciaGG.cs" />
     <Compile Include="BL_Utils\BL_Utils_IOC_SinDocumentoPago.cs" />
     <Compile Include="BL_Utils\BL_Utils_Kardex_Ceros_Negativo.cs" />
     <Compile Include="BL_Utils\BL_Utils_OC_SIn_Aprobar.cs" />
     <Compile Include="BL_Utils\BL_Utils_Pedido_Sin_Aprobar.cs" />
+    <Compile Include="BL_Utils\BL_Utils_Resultado_Operativo_C.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -109,8 +115,10 @@
     <Content Include="BD_Procedure\S10_GuiasIOC_SinFacturar.txt" />
     <Content Include="BD_Procedure\S10_Almacenes_ETE_ETEP_SeguimientoTransferencia.txt" />
     <Content Include="BD_Procedure\S10_Almacenes_001_004_ETE_ETEP_SeguimientoTransferenciaGG.txt" />
+    <Content Include="BD_Procedure\S10_Resultado_OperativoC.txt" />
     <Content Include="BD_View\S10_Almacenes_001_003_ETE_ETEP_Seguimiento.txt" />
     <Content Include="BD_View\S10_Compras_001_001_Pedidos_Por_Aprobar%28AR%29.txt" />
+    <Content Include="BD_View\S10_GerenciaRO.txt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="BD_View\S10_Almacenes_001_004_Kardex_Cantidades_Ceros_y_Negativos%28AR%29.txt" />
