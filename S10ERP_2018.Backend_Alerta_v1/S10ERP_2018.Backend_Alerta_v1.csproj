@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D93657E0-61C8-425A-8C31-39489C1A3BB2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>S10ERP_2018.Backend_Alerta_v1</RootNamespace>
+    <AssemblyName>S10ERP_2018.Backend_Alerta_v1</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common">
+      <HintPath>..\..\..\0.Library_DotNet\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Configuration.Design">
+      <HintPath>..\..\..\0.Library_DotNet\Microsoft.Practices.EnterpriseLibrary.Configuration.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Configuration.Design.HostAdapter">
+      <HintPath>..\..\..\0.Library_DotNet\Microsoft.Practices.EnterpriseLibrary.Configuration.Design.HostAdapter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Configuration.Design.HostAdapterV5">
+      <HintPath>..\..\..\0.Library_DotNet\Microsoft.Practices.EnterpriseLibrary.Configuration.Design.HostAdapterV5.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime">
+      <HintPath>..\..\..\0.Library_DotNet\Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
+      <HintPath>..\..\..\0.Library_DotNet\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ObjectBuilder2">
+      <HintPath>..\..\..\0.Library_DotNet\Microsoft.Practices.ObjectBuilder2.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\..\..\0.Library_DotNet\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BE_Data\BE_ETE_ETEP_SeguimientoTransferencia.cs" />
+    <Compile Include="BE_Data\BE_ETE_ETEP_SeguimientoTransferenciaGG.cs" />
+    <Compile Include="BE_Data\BE_ETE_ETEP_SeguimientoTransferenciaGGs.cs" />
+    <Compile Include="BE_Data\BE_ETE_ETEP_SeguimientoTransferencias.cs" />
+    <Compile Include="BE_Data\BE_IOC_SinDocumentoPago.cs" />
+    <Compile Include="BE_Data\BE_IOC_SinDocumentoPagos.cs" />
+    <Compile Include="BE_Data\BE_Kardex_Ceros_Negativo.cs" />
+    <Compile Include="BE_Data\BE_Kardex_Ceros_Negativos.cs" />
+    <Compile Include="BE_Data\BE_OC_SIn_Aprobar.cs" />
+    <Compile Include="BE_Data\BE_OC_SIn_Aprobars.cs" />
+    <Compile Include="BE_Data\BE_Pedido_Sin_Aprobar.cs" />
+    <Compile Include="BE_Data\BE_Pedido_Sin_Aprobars.cs" />
+    <Compile Include="BE_Data\BE_Resultado_Operativo_C.cs" />
+    <Compile Include="BE_Data\BE_Resultado_Operativo_Cs.cs" />
+    <Compile Include="BL_Implementation\BL_Impl_ETE_ETEP_SeguimientoTransferencia.cs" />
+    <Compile Include="BL_Implementation\BL_Impl_ETE_ETEP_SeguimientoTransferenciaGG.cs" />
+    <Compile Include="BL_Implementation\BL_Impl_ETE_ETEP_SeguimientoTransferenciaGG_Interface.cs" />
+    <Compile Include="BL_Implementation\BL_Impl_ETE_ETEP_SeguimientoTransferencia_Interface.cs" />
+    <Compile Include="BL_Implementation\BL_Impl_IOC_SinDocumentoPago.cs" />
+    <Compile Include="BL_Implementation\BL_Impl_IOC_SinDocumentoPago_Interface.cs" />
+    <Compile Include="BL_Implementation\BL_Impl_Kardex_Ceros_Negativo.cs" />
+    <Compile Include="BL_Implementation\BL_Impl_Kardex_Ceros_Negativo_Interface.cs" />
+    <Compile Include="BL_Implementation\BL_Impl_OC_SIn_Aprobar.cs" />
+    <Compile Include="BL_Implementation\BL_Impl_OC_SIn_Aprobar_Interface.cs" />
+    <Compile Include="BL_Implementation\BL_Impl_Pedido_Sin_Aprobar.cs" />
+    <Compile Include="BL_Implementation\BL_Impl_Pedido_Sin_Aprobar_Interface.cs" />
+    <Compile Include="BL_Implementation\BL_Impl_Resultado_Operativo_C.cs" />
+    <Compile Include="BL_Implementation\BL_Impl_Resultado_Operativo_C_Interface.cs" />
+    <Compile Include="BL_ObjCOntrol\BL_ObjControl_ETE_ETEP_SeguimientoTransferencia.cs" />
+    <Compile Include="BL_ObjCOntrol\BL_OBjControl_ETE_ETEP_SeguimientoTransferenciaGG.cs" />
+    <Compile Include="BL_ObjCOntrol\BL_ObjControl_IOC_SinDocumentoPago.cs" />
+    <Compile Include="BL_ObjCOntrol\BL_ObjControl_Kardex_Ceros_Negativo.cs" />
+    <Compile Include="BL_ObjCOntrol\BL_ObjControl_OC_SIn_Aprobar.cs" />
+    <Compile Include="BL_ObjCOntrol\BL_ObjCOntrol_Pedido_Sin_Aprobar.cs" />
+    <Compile Include="BL_ObjCOntrol\BL_ObjControl_Resultado_Operativo_C.cs" />
+    <Compile Include="BL_Utils\BL_Utils_ETE_ETEP_SeguimientoTransferencia.cs" />
+    <Compile Include="BL_Utils\BL_Utils_ETE_ETEP_SeguimientoTransferenciaGG.cs" />
+    <Compile Include="BL_Utils\BL_Utils_IOC_SinDocumentoPago.cs" />
+    <Compile Include="BL_Utils\BL_Utils_Kardex_Ceros_Negativo.cs" />
+    <Compile Include="BL_Utils\BL_Utils_OC_SIn_Aprobar.cs" />
+    <Compile Include="BL_Utils\BL_Utils_Pedido_Sin_Aprobar.cs" />
+    <Compile Include="BL_Utils\BL_Utils_Resultado_Operativo_C.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BD_Procedure\Kardex_Cantidades_Cero_Negativos.txt" />
+    <Content Include="BD_Procedure\S10_Pedidos_Sin_Aprobar.txt" />
+    <Content Include="BD_Procedure\S10_Orden_Compra_Sin_Aprobar.txt" />
+    <Content Include="BD_Procedure\S10_GuiasIOC_SinFacturar.txt" />
+    <Content Include="BD_Procedure\S10_Almacenes_ETE_ETEP_SeguimientoTransferencia.txt" />
+    <Content Include="BD_Procedure\S10_Almacenes_001_004_ETE_ETEP_SeguimientoTransferenciaGG.txt" />
+    <Content Include="BD_Procedure\S10_Resultado_OperativoC.txt" />
+    <Content Include="BD_View\S10_Almacenes_001_003_ETE_ETEP_Seguimiento.txt" />
+    <Content Include="BD_View\S10_Compras_001_001_Pedidos_Por_Aprobar%28AR%29.txt" />
+    <Content Include="BD_View\S10_GerenciaRO.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BD_View\S10_Almacenes_001_004_Kardex_Cantidades_Ceros_y_Negativos%28AR%29.txt" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
