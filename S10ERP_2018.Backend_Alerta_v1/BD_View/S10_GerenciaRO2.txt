@@ -1,7 +1,7 @@
 ﻿USE [INTERFACES]
 GO
 
-/****** Object:  View [dbo].[S10_GerenciaRO2]    Script Date: 08/03/2018 03:39:15 p.m. ******/
+/****** Object:  View [dbo].[S10_GerenciaRO2]    Script Date: 08/03/2018 05:27:48 p.m. ******/
 SET ANSI_NULLS ON
 GO
 

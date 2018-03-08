@@ -122,9 +122,11 @@
     <Content Include="BD_Procedure\S10_Almacenes_ETE_ETEP_SeguimientoTransferencia.txt" />
     <Content Include="BD_Procedure\S10_Almacenes_001_004_ETE_ETEP_SeguimientoTransferenciaGG.txt" />
     <Content Include="BD_Procedure\S10_Resultado_OperativoC.txt" />
+    <Content Include="BD_Procedure\S10_Resultado_OperativoD.txt" />
     <Content Include="BD_View\S10_Almacenes_001_003_ETE_ETEP_Seguimiento.txt" />
     <Content Include="BD_View\S10_Compras_001_001_Pedidos_Por_Aprobar%28AR%29.txt" />
     <Content Include="BD_View\S10_GerenciaRO.txt" />
+    <Content Include="BD_View\S10_GerenciaRO2.txt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="BD_View\S10_Almacenes_001_004_Kardex_Cantidades_Ceros_y_Negativos%28AR%29.txt" />

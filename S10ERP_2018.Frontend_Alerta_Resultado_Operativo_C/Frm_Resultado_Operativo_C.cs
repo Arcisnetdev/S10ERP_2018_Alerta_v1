@@ -97,39 +97,52 @@ namespace S10ERP_2018.Frontend_Alerta_Resultado_Operativo_C
         {
             IEnumerator enumerator;
             string str = "<html>";
-            str = ((((((((str + "<body><center> " + "<div style='font-size:11px; font-family:Arial; text-align:left; padding:10px; width:850px;'>") +
+            str = ((str + "<body><center> " + "<div style='font-size:11px; font-family:Arial; text-align:left; padding:10px; width:650px;'>") +
                 "<br><div style='padding-left:30px; padding-right:30px; text-align:justify'><strong>Estimado(a) usuario(a):</strong>" +
-                "<br>El listado presentado a continuacion son los que deben ser corroborado en ERP S10.") + "</div><br>" +
-                "<div style='font-size:11px; font-family:Arial;background-color:#E8EAEE; padding:20px'>") + "<table width='1300'  cellpadding='3'>" +
-                "<tr><td colspan='2'>") + "<hr /> </td></tr>" +
-                "<tr><td width='400' valign='top' style='text-align:center;background-color:#DDDDDD;font-size:8px; font-family:Arial'>PROYECTO</td>") +
-                "<td width='30' valign='top' style='text-align:center;background-color:#DDDDDD;font-size:8px; font-family:Arial'>TIPO_PRESUPUESTO</td>" +
-                "<td width='90' valign='top' style='text-align:center;background-color:#DDDDDD;font-size:8px; font-family:Arial'>DESCRIPCION_PRESUPUESTO</td>") +
-                "<td width='50' valign='top' style='text-align:center;background-color:#FF5733;font-size:8px; font-family:Arial'>PRESUPUESTO</td>" +
-                "<td width='40' valign='top' style='text-align:center;background-color:#DDDDDD;font-size:8px; font-family:Arial'>PROGRAMADO</td>") +
-                "<td width='70' valign='top' style='text-align:center;background-color:#DDDDDD;font-size:8px; font-family:Arial'>VALORIZADO</td>" +
-                "<td width='70' valign='top' style='text-align:center;background-color:#FF5733;font-size:8px; font-family:Arial'>REAL</td></tr>");
+                "<br>El listado presentado a continuacion son los que deben ser corroborado en ERP S10.") +
+                "</div><br><hr />" + "<div style='font-size:11px; font-family:Arial;padding:20px'>";
             try
             {
                 enumerator = ((IEnumerable)BL_ObjControl_Resultado_Operativo_C.PoblarResultado_Operativo_CSelAll()).GetEnumerator();
                 while (enumerator.MoveNext())
                 {
+                    IEnumerator enumerator2;
                     BE_Resultado_Operativo_C current = (BE_Resultado_Operativo_C)enumerator.Current;
-                    str = str + "<tr><td width='400' valign='top' style='font-size:8px; font-family:Arial;text-align:center;'>" + current.Des_Proyecto + "</td>";
-                    str = str + "<td width='30' valign='top' style='font-size:8px; font-family:Arial;text-align:center;'> " + current.TipoPresupuesto + "</td>";
-                    str = str + "<td width='90' valign='top' style='font-size:8px; font-family:Arial;text-align:center;'> " + current.Des_Proyecto + "</td>";
-                    str = str + "<td width='50' valign='top' style='font-size:8px; font-family:Arial;text-align:center;color:red'> " + current.Presupuesto + "</td>";
-                    str = str + "<td width='40' valign='top' style='font-size:8px; font-family:Arial;text-align:center;'>" + current.Programado + "</td>";
-                    str = str + "<td width='70' valign='top' style='font-size:8px; font-family:Arial;text-align:center;'> " + current.Valorizado + "</td>";
-                    str = str + "<td width='180' valign='top' style='font-size:8px; font-family:Arial;text-align:center;color:red'> " + current.Reall + "</td> </tr>";
+                    str = str + "<table cellspacing='0' cellpadding='0' width='605px'><tr><td colspan='3' width='350'></td><td  style='font-size:10px; font-family:Arial;text-align:center;border:1px solid black;background-color:#C5E3ED' width='85'><strong>PRESUPUESTO</strong></td>" +
+                        "<td width='85' style='font-size:10px; font-family:Arial;text-align:center;border:1px solid black;background-color:#C5E3ED'><strong>REAL</strong></td></tr>";
+                    str = str + "<tr><td  style='font-size:10px; font-family:Arial;text-align:left;font-weight: bold;border:1px solid black;background-color:#C5D5E9' colspan='3' width='350'>Proyecto:" + current.Des_Proyecto + "</td>";
+                    str = str + "<td align='right' valign='top' style='font-size:10px; font-family:Arial;text-align:center;border:1px solid black;background-color:#FFA6A6'> " + current.Presupuesto + "</td>";
+                    str = str + "<td align='right' valign='top' style='font-size:10px; font-family:Arial;text-align:center;border:1px solid black;background-color:#FFA6A6'> " + current.Reall + "</td>";
+                    str = str + "</tr><tr><td style='font-size:10px; font-family:Arial;text-align:left;font-weight: bold;border:1px solid black;background-color:#C5D5E9' colspan='3' width='350'>Presupuestos:" + current.TipoPresupuesto + "-" + current.Des_Presupuesto + "</td>";
+                    str = str + "<td colspan='4' rowspan='2' style='border:1px solid black'>&nbsp;</td> </tr><tr><td colspan='3' width='350' style='font-size:10px; font-family:Arial;text-align:left;font-weight: bold;border:1px solid black;background-color:#C5D5E9'>Detalle:</td></tr>";
+                    try
+                    {
+                        enumerator2 = ((IEnumerable)BL_ObjControl_Resultado_Operativo_D.PoblarResultado_Operativo_DSelAll(current.CodProyecto, current.CodPresupuesto)).GetEnumerator();
+                        while (enumerator2.MoveNext())
+                        {
+                            BE_Resultado_Operativo_D rod = (BE_Resultado_Operativo_D)enumerator2.Current;
+                            str = str + "<tr>";
+                            str = str + "<td colspan='3'  width='350' align='right' valign='top' style='font-size:10px; font-family:Arial;text-align:right;border:1px solid black'> " + rod.Recurso + "</td>";
+                            str = str + "<td align='right' valign='top' style='font-size:10px; font-family:Arial;text-align:center;border:1px solid black' width='85'> " + rod.Presupuesto + "</td>";
+                            str = str + "<td align='right' valign='top' style='font-size:10px; font-family:Arial;text-align:center;border:1px solid black' width='85'> " + rod.Reall + "</td></tr>";
+                        }
+                    }
+                    finally
+                    {
+                        //if (enumerator2 is IDisposable)
+                        //{
+                        //    (enumerator2 as IDisposable).Dispose();
+                        //}
+                    }
+                    str = str + "</table><br />";
                 }
             }
             finally
             {
-                //    if (enumerator is IDisposable)
-                //    {
-                //        (enumerator as IDisposable).Dispose();
-                //    }
+                //if (enumerator is IDisposable)
+                //{
+                //    (enumerator as IDisposable).Dispose();
+                //}
             }
             return (((str + "</table>" + "</div>") + "<hr /><div style='font-size:10px; padding-left:30px; padding-right:30px'>" +
                 "<strong><em>QLABSP Investors</em></strong><br><br>") +
