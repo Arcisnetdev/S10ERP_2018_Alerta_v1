@@ -1,0 +1,61 @@
+﻿USE [INTERFACES]
+GO
+
+/****** Object:  View [dbo].[S10_Almacenes_001_003_ETE_ETEP_Seguimiento(AR)]    Script Date: 02/03/2018 04:01:42 p.m. ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE VIEW [dbo].[S10_Almacenes_001_003_ETE_ETEP_Seguimiento(AR)]
+AS
+SELECT     pr.Descripcion AS NOMBREPROYECTO, pr.Llave, pal.Descripcion AS ALMACEN, ISNULL
+                          ((SELECT     ISNULL(Descripcion, '') AS Expr1
+                              FROM         NEXCOMS10.dbo.Identificador
+                              WHERE     (CodIdentificador = ga.CodIdentificador)), '') AS SOLICITANTE, 
+                      CASE WHEN gam.Abreviatura LIKE 'I%' THEN 'INGRESOS' WHEN gam.Abreviatura LIKE 'E%' THEN 'EGRESOS' END AS TIPO_MOVIMIENTO, ped.CodPedido, 
+                      ped.FechaPedido, ped.Usuario AS REGISTRADOR, ped.UsuarioA AS APROBADOR, ped.FechaAprobacion AS FECHA_APROBACION, gam.Abreviatura AS MOVIMIENTO, 
+                      gam.Descripcion AS MOVIMIENTO_DESCRIPCION, ISNULL(ga.CodGuia, '') AS GUIA_ALMACEN, ga.SerieDocumento, ga.NroDocumento, 
+                      CASE WHEN ga.CodEstadoCierre = '01' THEN 'Edición' WHEN ga.CodEstadoCierre = '02' THEN 'Revisado' WHEN ga.CodEstadoCierre = '03' THEN 'Protegido' WHEN ga.CodEstadoCierre
+                       = '10' THEN 'Anulado' ELSE '' END AS EstadoCierre, ga.CodEstadoCierre, CONVERT(varchar, ga.FechaGuia, 111) AS FECHA_GUIA, YEAR(CONVERT(varchar, 
+                      ga.FechaGuia, 111)) AS FECHAGUIA_Año, DATENAME(MONTH, CONVERT(varchar, ga.FechaGuia, 111)) AS FECHAGUIA_Mes, DAY(CONVERT(varchar, ga.FechaGuia, 
+                      111)) AS FECHAGUIA_Dia,
+                          (SELECT     Descripcion
+                            FROM          NEXCOMS10.dbo.Insumo
+                            WHERE      (CodInsumo = SUBSTRING(gad.CodInsumo, 0, 3))) AS N1,
+                          (SELECT     Descripcion
+                            FROM          NEXCOMS10.dbo.Insumo AS Insumo_2
+                            WHERE      (CodInsumo = SUBSTRING(gad.CodInsumo, 0, 5))) AS N2,
+                          (SELECT     Descripcion
+                            FROM          NEXCOMS10.dbo.Insumo AS Insumo_1
+                            WHERE      (CodInsumo = SUBSTRING(gad.CodInsumo, 0, 7))) AS N3, gad.CodInsumo AS CODRECURSO, ins.Descripcion AS RECURSO, un.Descripcion AS UNIDAD, 
+                      CASE WHEN ga.CodMoneda = '01' THEN 'S/.' WHEN ga.CodMoneda = '02' THEN 'U$' WHEN ga.CodMoneda = '03' THEN 'S/' END AS SIMBOLO, CONVERT(Decimal(30, 
+                      4), gad.Cantidad) AS CANTIDAD, CONVERT(Decimal(30, 4), gad.PrecioNeto) AS PRECIO, CONVERT(Decimal(30, 4), ga.Parcial) AS PARCIAL,  ISNULL
+                          ((SELECT     Descripcion AS PROYECTO_DESTINO
+                              FROM         NEXCOMS10.dbo.Proyecto AS pr
+                              WHERE     (CodProyecto = ga.CodProyectoTransferencia)), '') AS PROYECTO_DESTINO, ISNULL
+                          ((SELECT     Llave AS llave2
+                              FROM         NEXCOMS10.dbo.Proyecto AS pr
+                              WHERE     (CodProyecto = ga.CodProyectoTransferencia)), '') AS llave2, ISNULL
+                          ((SELECT     Descripcion AS ALMACEN_DESTINO
+                              FROM         NEXCOMS10.dbo.ProyectoAlmacen AS pra
+                              WHERE     (CodProyecto = ga.CodProyectoTransferencia) AND (CodAlmacen = ga.CodAlmacenTransferencia)), '') AS ALMACEN_DESTINO, 
+                      ga2.CodGuia AS CODGUIADESTINO, ga.NroGuiaIngreso AS GUIAINGRESO, ga.NroGuiaRelacion AS GUIARELACION, ISNULL(ga.Observacion, '') AS OBSERVACION, 
+                      ga.UsuarioR AS USUARIOCREADOR, ga.UsuarioM AS USUARIOMODIFICADOR, CONVERT(varchar, ga.CreacionFecha, 20) AS FECHACREACION, CONVERT(varchar, 
+                      ga.ActualizacionFecha, 20) AS FECHAMODIFICACION, ga.TipoCambio
+FROM         NEXCOMS10.dbo.GuiaAlmacen AS ga LEFT OUTER JOIN
+                      NEXCOMS10.dbo.GuiaAlmacen AS ga2 ON ga.NroGuiaRelacion = ga2.NroGuia INNER JOIN
+                      NEXCOMS10.dbo.GuiaAlmacenDetalle AS gad ON ga.NroGuia = gad.NroGuia INNER JOIN
+                      NEXCOMS10.dbo.Proyecto AS pr ON pr.CodProyecto = ga.CodProyecto INNER JOIN
+                      NEXCOMS10.dbo.ProyectoAlmacen AS pal ON ga.CodProyecto = pal.CodProyecto AND ga.CodAlmacen = pal.CodAlmacen INNER JOIN
+                      NEXCOMS10.dbo.GuiaAlmacenMovimiento AS gam ON ga.CodMovimiento = gam.CodMovimiento LEFT OUTER JOIN
+                      NEXCOMS10.dbo.Pedido AS ped ON ga.NroPedido = ped.NroPedido INNER JOIN
+                      NEXCOMS10.dbo.Insumo AS ins ON gad.CodInsumo = ins.CodInsumo INNER JOIN
+                      NEXCOMS10.dbo.Unidad AS un ON ins.CodUnidad = un.CodUnidad
+WHERE     (ga.CodMovimiento IN ('23', '24', '29', '2V')) AND (ga.CodEstadoCierre <> '10') AND (ga.NroGuiaIngreso IS NULL) AND (ga.NroGuiaRelacion IS NULL)
+
+GO
+
+

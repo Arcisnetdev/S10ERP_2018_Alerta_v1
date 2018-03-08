@@ -1,0 +1,34 @@
+﻿USE [INTERFACES]
+GO
+
+/****** Object:  View [dbo].[S10_GerenciaRO2]    Script Date: 08/03/2018 03:39:15 p.m. ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+CREATE VIEW [dbo].[S10_GerenciaRO2]
+AS
+SELECT     Codigo, ISNULL(CONVERT(varchar(30), CONVERT(money, SUM(Parcial)), 1), '0.00') AS Parcial2
+FROM         (SELECT     LEFT(ror.CodProyecto, 5) + pre.CodPresupuesto + ror.CodInsumo2 AS Codigo,
+                                                  (SELECT     SUM(Cantidad * Precio1) AS Expr1
+                                                    FROM          NEXCOMS10.dbo.PrecioParticularInsumo
+                                                    WHERE      (CodPresupuesto = pre.CodPresupuesto) AND (LEFT(CodInsumo, 2) = ror.CodInsumo2)
+                                                    GROUP BY CodPresupuesto) AS Parcial
+                       FROM          NEXCOMS10.dbo.ResultadoOperativoRecurso AS ror INNER JOIN
+                                              NEXCOMS10.dbo.ProyectoPresupuesto AS pp ON LEFT(ror.CodProyecto, 5) = LEFT(pp.CodProyecto, 5) INNER JOIN
+                                              NEXCOMS10.dbo.Presupuesto AS pre ON pp.CodPresupuesto = pre.CodPresupuesto INNER JOIN
+                                              NEXCOMS10.dbo.Proyecto AS pr ON LEFT(ror.CodProyecto, 5) = pr.CodProyecto
+                       WHERE      (pr.Llave = 1)
+                       GROUP BY ror.CodProyecto, pre.CodPresupuesto, ror.CodInsumo2) AS tmp2
+GROUP BY Codigo
+--ORDER BY Codigo
+
+
+
+GO
+
+

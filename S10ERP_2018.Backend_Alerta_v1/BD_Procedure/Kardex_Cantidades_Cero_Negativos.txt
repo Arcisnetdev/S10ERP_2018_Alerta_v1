@@ -1,0 +1,48 @@
+﻿USE [INTERFACES]
+GO
+
+/****** Object:  StoredProcedure [dbo].[Kardex_Cantidades_Cero_Negativos]    Script Date: 02/03/2018 04:04:49 p.m. ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[Kardex_Cantidades_Cero_Negativos]
+	-- Add the parameters for the stored procedure here
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+SELECT  isnull([PROYECTO],'') as PROYECTO
+      ,isnull([ALMACEN],'') AS ALMACEN
+      ,isnull([CODRECURSO],'') AS CODRECURSO
+      ,isnull([RECURSO],'') AS RECURSO
+      ,isnull([UNIDAD],'') AS UNIDAD
+      ,isnull([FECHA_GUIA],'') as FECHAGUIA
+      ,isnull([CodGuia],'') AS NROGUIA
+      ,isnull([MOVIMIENTO],'') AS MOVIMIENTO
+     ,isnull([MONEDA],'') AS MONEDA
+      ,ISNULL(CAST([CANTIDAD_GUIA] AS varchar(12)),'') AS CANTIDAD
+      ,ISNULL(CAST([STOCK_ANTERIOR] AS varchar(12)),'') AS STOCKANTERIOR
+      ,ISNULL(CAST([STOCK_ACTUAL] AS varchar(12)),'') AS STOCKACTUAL
+      ,ISNULL(CAST([PRECIO] AS varchar(12)),'') AS PRECIO
+      ,isnull([PROYECTO_TRANSFERENCIA],'') AS PROYECTOTRANS
+      ,isnull([ALMACEN_TRANSFERENCIA],'') AS ALMACENTRANS
+      
+  FROM [INTERFACES].[dbo].[S10_Almacenes_001_004_Kardex_Cantidades_Ceros_y_Negativos(AR)]
+  where codestadocierre not in ('10') and llave='1'
+
+END
+GO
+
+

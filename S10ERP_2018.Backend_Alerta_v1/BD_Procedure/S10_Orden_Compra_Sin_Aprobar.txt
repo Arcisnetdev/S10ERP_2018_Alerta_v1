@@ -1,0 +1,48 @@
+﻿USE [INTERFACES]
+GO
+
+/****** Object:  StoredProcedure [dbo].[S10_Orden_Compra_Sin_Aprobar]    Script Date: 02/03/2018 05:49:01 p.m. ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[S10_Orden_Compra_Sin_Aprobar]
+	-- Add the parameters for the stored procedure here
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+Select oc.CodProyecto, oc.Proyecto, oc.CodOrden as NroOrden,CASE WHEN oc.TipoOrden='0' THEN 'Orden Compra' ELSE 'Orden Servicio' END as Tipo,oc.CodFormaDePago, oc.FORMADEPAGO, oc.CodMoneda, oc.MONEDA,
+oc.ValorNeto,oc.CodEstado, oc.EstadoOC, oc.ProveedorRuc, oc.Proveedor,oc.LugarDeEntrega,CONVERT(varchar, oc.Fecha, 103) AS FechaOrden, CONVERT(varchar, oc.FechaEntrega, 103) AS FechaEntrega, 
+oc.DescripcionProcedencia as Procedencia, cc.Descripcion as CentroCompra, oc.CreacionUsuario, oc.ActualizacionUsuario,CONVERT(varchar, oc.FechaEnvioAprobacion, 100) AS FechaEnvioAprobacion ,
+oc.UsuarioA, CONVERT(varchar, oc.FechaAprobacion, 100) AS FechaAprobacion, oc.Comprador, oc.MontoFacturado, oc.EstadoFacturado ,oc.Observacion
+from NEXCOMS10.dbo.vw_02OrdenesDeCompra as oc INNER JOIN NEXCOMS10.dbo.CentroCompra as cc on oc.NroCC=cc.NroCC INNER JOIN
+NEXCOMS10.dbo.Proyecto as py on oc.CodProyecto=py.CodProyecto
+where oc.CodEstado in ('01','06') and py.Llave='1' and YEAR(oc.Fecha)>='2018' and Month(oc.Fecha)>='01'
+
+END
+
+
+
+
+
+GO
+
+

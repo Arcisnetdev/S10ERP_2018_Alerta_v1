@@ -1,0 +1,63 @@
+﻿USE [INTERFACES]
+GO
+
+/****** Object:  StoredProcedure [dbo].[S10_Resultado_OperativoD]    Script Date: 08/03/2018 03:38:41 p.m. ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[S10_Resultado_OperativoD]
+	-- Add the parameters for the stored procedure here
+(
+ 	
+	@CODPROYECTO VARCHAR (50), 
+	@CODPRESUPUESTO VARCHAR (50)
+)
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+    
+ SELECT    
+ ror.CodInsumo2 AS GRUPO, 
+ ror.DesInsumo2 AS RECURSO, 
+                                                    (SELECT   [Parcial2] FROM INTERFACES.[dbo].[S10_GerenciaRO2] where [Codigo]=LEFT(ror.CodProyecto, 5)+pre.CodPresupuesto+ror.CodInsumo2) as PRESUPUESTO,
+                                              CONVERT(varchar(30),
+                                                  (SELECT     ISNULL(CONVERT(varchar(30), CONVERT(money, SUM(M_ProgramadoValorizado)), 1), '0.00') AS PROGRAMADO
+                                                    FROM          NEXCOMS10.dbo.ResultadoOperativoRecurso AS ro
+                                                    WHERE      (CodProyecto = ror.CodProyecto) AND (CodInsumo2 = ror.CodInsumo2))) AS Programado, CONVERT(varchar(30),
+                                                  (SELECT     ISNULL(CONVERT(varchar(30), CONVERT(money, SUM(M_ValorizadoValorizado)), 1), '0.00') AS VALORIZADO
+                                                    FROM          NEXCOMS10.dbo.ResultadoOperativoRecurso AS ro
+                                                    WHERE      (CodProyecto = ror.CodProyecto) AND (CodInsumo2 = ror.CodInsumo2))) AS Valorizado, CONVERT(varchar(30),
+                                                  (SELECT     ISNULL(CONVERT(varchar(30), CONVERT(money, SUM(M_RealValorizado)), 1), '0.00') AS REALL
+                                                    FROM          NEXCOMS10.dbo.ResultadoOperativoRecurso AS ro
+                                                    WHERE      (CodProyecto = ror.CodProyecto) AND (CodInsumo2 = ror.CodInsumo2))) AS Reall
+
+                       FROM                   NEXCOMS10.dbo.ResultadoOperativoRecurso AS ror INNER JOIN
+                                              NEXCOMS10.dbo.ProyectoPresupuesto AS pp ON LEFT(ror.CodProyecto, 5) = LEFT(pp.CodProyecto, 5) INNER JOIN
+                                              NEXCOMS10.dbo.Presupuesto AS pre ON pp.CodPresupuesto = pre.CodPresupuesto INNER JOIN
+                                              NEXCOMS10.dbo.Proyecto AS pr ON LEFT(ror.CodProyecto, 5) = pr.CodProyecto 
+                                              
+                                              
+WHERE     (pr.Llave = 1)
+AND LEFT(ror.CodProyecto, 5)+pre.CodPresupuesto=@CODPROYECTO+@CODPRESUPUESTO
+GROUP BY ror.CodProyecto, pre.CodPresupuesto, pp.TipoPresupuesto, ror.CodInsumo2, ror.DesInsumo2
+ORDER BY  ror.CodProyecto   
+
+END
+
+GO
+
+

@@ -1,0 +1,56 @@
+﻿USE [INTERFACES]
+GO
+
+/****** Object:  StoredProcedure [dbo].[S10_Resultado_OperativoC]    Script Date: 07/03/2018 04:56:37 p.m. ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[S10_Resultado_OperativoC]
+	-- Add the parameters for the stored procedure here
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+SELECT  LEFT(ror.CodProyecto, 5) AS CODPROYECTO, 
+				ror.DesProyecto AS DES_PROYECTO, 
+			    CASE WHEN pp.TipoPresupuesto = 'V' THEN 'Venta Descompuesto' WHEN pp.TipoPresupuesto = 'O' THEN 'Venta' WHEN pp.TipoPresupuesto = 'B' THEN 'Linea Base' 
+				WHEN pp.TipoPresupuesto = 'M' THEN 'Meta' END AS TIPOPRESUPUESTO, 
+				pre.CodPresupuesto AS CODPRESUPUESTO,
+				pre.Descripcion AS DES_PRESUPUESTO,
+				CONVERT(varchar(30), CONVERT(money,tmp.Parcial), 1) AS PRESUPUESTO,
+
+				CONVERT(varchar(30), CONVERT(money,(SELECT     ISNULL(SUM(M_ProgramadoValorizado), '0.00')   FROM    NEXCOMS10.dbo.ResultadoOperativoRecurso AS ro 
+				WHERE (CodProyecto = ror.CodProyecto) AND (CodInsumo2 = CodInsumo2))), 1) AS PROGRAMADO, 
+
+				CONVERT(varchar(30), CONVERT(money,(SELECT     ISNULL(SUM(M_ValorizadoValorizado), '0.00')  FROM  NEXCOMS10.dbo.ResultadoOperativoRecurso AS ro 
+				WHERE (CodProyecto = ror.CodProyecto) AND (CodInsumo2 = CodInsumo2))), 1) AS VALORIZADO, 
+
+			    CONVERT(varchar(30), CONVERT(money,(SELECT     ISNULL(SUM(M_RealValorizado), '0.00')  FROM  NEXCOMS10.dbo.ResultadoOperativoRecurso AS ro 
+				WHERE (CodProyecto = ror.CodProyecto) AND (CodInsumo2 = CodInsumo2))), 1) AS REALL
+                
+         FROM   NEXCOMS10.dbo.ResultadoOperativoRecurso AS ror INNER JOIN
+                NEXCOMS10.dbo.ProyectoPresupuesto AS pp ON LEFT(ror.CodProyecto, 5) = LEFT(pp.CodProyecto, 5) INNER JOIN
+                NEXCOMS10.dbo.Presupuesto AS pre ON pp.CodPresupuesto = pre.CodPresupuesto INNER JOIN
+                NEXCOMS10.dbo.Proyecto AS pr ON LEFT(ror.CodProyecto, 5) = pr.CodProyecto inner join 
+                INTERFACES.dbo.S10_GerenciaRO tmp on
+				pr.CodProyecto+pre.CodPresupuesto=tmp.Codigo
+WHERE     (pr.Llave = 1) --and pp.TipoPresupuesto <>'B'
+GROUP BY ror.CODPROYECTO, ror.DesProyecto, pre.CODPRESUPUESTO, pre.Descripcion,  pp.TipoPresupuesto,Parcial
+order by ror.DesProyecto 
+
+END
+GO
+
+

@@ -1,0 +1,47 @@
+﻿USE [INTERFACES]
+GO
+
+/****** Object:  StoredProcedure [dbo].[S10_Almacenes_ETE_ETEP_SeguimientoTransferencia]    Script Date: 02/03/2018 04:06:29 p.m. ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[S10_Almacenes_ETE_ETEP_SeguimientoTransferencia]
+	-- Add the parameters for the stored procedure here
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+SELECT 
+       [NOMBREPROYECTO] as Proyecto,[ALMACEN]as Almacen,[GUIA_ALMACEN] as CodGuia,[FECHA_GUIA] as FechaGuia,CASE when [SerieDocumento]IS null then '0' else [SerieDocumento] end as SerieDocumento ,
+       case when [NroDocumento] is null then '0' else[NroDocumento] end as NroDocumento ,[MOVIMIENTO] as MovimientoOrigen,[EstadoCierre],CODRECURSO as CodRecurso,RECURSO as Recurso,
+       [SIMBOLO],CONVERT(varchar, CAST([Parcial] AS money), 1) as Parcial,case when [CodPedido]is null then '0' else [CodPedido] end as [CodPedido],[PROYECTO_DESTINO] as ProyectoDestino,case when [CODGUIADESTINO] is null then
+       '--' else [CODGUIADESTINO] end as [CodGuiaRelacion],[USUARIOCREADOR] as CreacionUsuario,
+	   [FECHACREACION] as CreacionFecha,[USUARIOMODIFICADOR] as ActualizacionUsuario,[FECHAMODIFICACION] as ActualizacionFecha,[FECHAGUIA_Año] as Ano
+
+from [INTERFACES].[dbo].[S10_Almacenes_001_003_ETE_ETEP_Seguimiento(AR)]
+where CodEstadoCierre <> '10' and [CODGUIADESTINO] is null and [GUIARELACION] is null --and [FechaGuia_año] >= '2018'
+--where CodEstadoCierre <> '10' and [CODGUIADESTINO] is null and [FECHA_GUIA] >='01/01/2015'
+ORDER BY  [NOMBREPROYECTO],[CreacionFecha] ASC
+
+
+END
+
+
+GO
+
+
