@@ -78,6 +78,8 @@
     <Compile Include="BE_Data\BE_Pedido_Sin_Aprobars.cs" />
     <Compile Include="BE_Data\BE_Resultado_Operativo_C.cs" />
     <Compile Include="BE_Data\BE_Resultado_Operativo_Cs.cs" />
+    <Compile Include="BE_Data\BE_Resultado_Operativo_D.cs" />
+    <Compile Include="BE_Data\BE_Resultado_Operativo_Ds.cs" />
     <Compile Include="BL_Implementation\BL_Impl_ETE_ETEP_SeguimientoTransferencia.cs" />
     <Compile Include="BL_Implementation\BL_Impl_ETE_ETEP_SeguimientoTransferenciaGG.cs" />
     <Compile Include="BL_Implementation\BL_Impl_ETE_ETEP_SeguimientoTransferenciaGG_Interface.cs" />
@@ -92,6 +94,8 @@
     <Compile Include="BL_Implementation\BL_Impl_Pedido_Sin_Aprobar_Interface.cs" />
     <Compile Include="BL_Implementation\BL_Impl_Resultado_Operativo_C.cs" />
     <Compile Include="BL_Implementation\BL_Impl_Resultado_Operativo_C_Interface.cs" />
+    <Compile Include="BL_Implementation\BL_Impl_Resultado_Operativo_D.cs" />
+    <Compile Include="BL_Implementation\BL_Impl_Resultado_Operativo_D_Interface.cs" />
     <Compile Include="BL_ObjCOntrol\BL_ObjControl_ETE_ETEP_SeguimientoTransferencia.cs" />
     <Compile Include="BL_ObjCOntrol\BL_OBjControl_ETE_ETEP_SeguimientoTransferenciaGG.cs" />
     <Compile Include="BL_ObjCOntrol\BL_ObjControl_IOC_SinDocumentoPago.cs" />
@@ -99,6 +103,7 @@
     <Compile Include="BL_ObjCOntrol\BL_ObjControl_OC_SIn_Aprobar.cs" />
     <Compile Include="BL_ObjCOntrol\BL_ObjCOntrol_Pedido_Sin_Aprobar.cs" />
     <Compile Include="BL_ObjCOntrol\BL_ObjControl_Resultado_Operativo_C.cs" />
+    <Compile Include="BL_ObjCOntrol\BL_ObjControl_Resultado_Operativo_D.cs" />
     <Compile Include="BL_Utils\BL_Utils_ETE_ETEP_SeguimientoTransferencia.cs" />
     <Compile Include="BL_Utils\BL_Utils_ETE_ETEP_SeguimientoTransferenciaGG.cs" />
     <Compile Include="BL_Utils\BL_Utils_IOC_SinDocumentoPago.cs" />
@@ -106,6 +111,7 @@
     <Compile Include="BL_Utils\BL_Utils_OC_SIn_Aprobar.cs" />
     <Compile Include="BL_Utils\BL_Utils_Pedido_Sin_Aprobar.cs" />
     <Compile Include="BL_Utils\BL_Utils_Resultado_Operativo_C.cs" />
+    <Compile Include="BL_Utils\BL_Utils_Resultado_Operativo_D.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

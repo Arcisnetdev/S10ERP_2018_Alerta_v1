@@ -42,7 +42,7 @@ namespace S10ERP_2018.Frontend_Alerta_Resultado_Operativo_C
 
             MailMessage message = new MailMessage();
             //Lista para envio a Operaciones
-            message.To.Add("epariona@siscoperu.com");
+            //message.To.Add("epariona@siscoperu.com");
             //message.To.Add("jgarcia@incot.com.pe");
             //message.To.Add("hmonroy@incot.com.pe");
             message.Bcc.Add("alerta@qlabsp.com");
