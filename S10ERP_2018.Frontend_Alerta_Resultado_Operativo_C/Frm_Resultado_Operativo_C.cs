@@ -42,9 +42,10 @@ namespace S10ERP_2018.Frontend_Alerta_Resultado_Operativo_C
 
             MailMessage message = new MailMessage();
             //Lista para envio a Operaciones
-            //message.To.Add("epariona@siscoperu.com");
-            //message.To.Add("jgarcia@incot.com.pe");
-            //message.To.Add("hmonroy@incot.com.pe");
+            message.To.Add("epariona@siscoperu.com");
+            message.To.Add("jramos@incot.com.pe"); // Resultados Operativos
+            //message.To.Add("jgarcia@incot.com.pe"); //Pedidos y Compras (Logistica)
+            //message.To.Add("hmonroy@incot.com.pe"); //Pedidos y Compras (Logistica)
             message.Bcc.Add("alerta@qlabsp.com");
             //message.To.Add("arosales@nexcom.com.pe");
             ////message.Bcc.Add("jcahuana@nexcom.com.pe");
@@ -74,6 +75,7 @@ namespace S10ERP_2018.Frontend_Alerta_Resultado_Operativo_C
 
             message.BodyEncoding = Encoding.UTF8;
             message.IsBodyHtml = true;
+            //message.Attachments.Add(new Attachment(@"C:\devtroce.com.html"));
             SmtpClient client = new SmtpClient("smtp.ipage.com")
             //SmtpClient client = new SmtpClient("192.168.100.2")
             {
@@ -109,11 +111,15 @@ namespace S10ERP_2018.Frontend_Alerta_Resultado_Operativo_C
                     IEnumerator enumerator2;
                     BE_Resultado_Operativo_C current = (BE_Resultado_Operativo_C)enumerator.Current;
                     str = str + "<table cellspacing='0' cellpadding='0' width='605px'><tr><td colspan='3' width='350'></td><td  style='font-size:10px; font-family:Arial;text-align:center;border:1px solid black;background-color:#C5E3ED' width='85'><strong>PRESUPUESTO</strong></td>" +
+                        "<td width='85' style='font-size:10px; font-family:Arial;text-align:center;border:1px solid black;background-color:#C5E3ED'><strong>PROGRAMADO</strong></td>" +
+                        "<td width='85' style='font-size:10px; font-family:Arial;text-align:center;border:1px solid black;background-color:#C5E3ED'><strong>VALORIZADO</strong></td>" +
                         "<td width='85' style='font-size:10px; font-family:Arial;text-align:center;border:1px solid black;background-color:#C5E3ED'><strong>REAL</strong></td></tr>";
                     str = str + "<tr><td  style='font-size:10px; font-family:Arial;text-align:left;font-weight: bold;border:1px solid black;background-color:#C5D5E9' colspan='3' width='350'>Proyecto:" + current.Des_Proyecto + "</td>";
                     str = str + "<td align='right' valign='top' style='font-size:10px; font-family:Arial;text-align:center;border:1px solid black;background-color:#FFA6A6'> " + current.Presupuesto + "</td>";
+                    str = str + "<td align='right' valign='top' style='font-size:10px; font-family:Arial;text-align:center;border:1px solid black;background-color:#FFA6A6'> " + current.Programado + "</td>";
+                    str = str + "<td align='right' valign='top' style='font-size:10px; font-family:Arial;text-align:center;border:1px solid black;background-color:#FFA6A6'> " + current.Valorizado + "</td>";
                     str = str + "<td align='right' valign='top' style='font-size:10px; font-family:Arial;text-align:center;border:1px solid black;background-color:#FFA6A6'> " + current.Reall + "</td>";
-                    str = str + "</tr><tr><td style='font-size:10px; font-family:Arial;text-align:left;font-weight: bold;border:1px solid black;background-color:#C5D5E9' colspan='3' width='350'>Presupuestos:" + current.TipoPresupuesto + "-" + current.Des_Presupuesto + "</td>";
+                    str = str + "</tr><tr><td style='font-size:10px; font-family:Arial;text-align:left;font-weight: bold;border:1px solid black;background-color:#C5D5E9' colspan='3' width='350'>Presupuestos:" + current.TipoPresupuesto + " - " + current.Des_Presupuesto + "</td>";
                     str = str + "<td colspan='4' rowspan='2' style='border:1px solid black'>&nbsp;</td> </tr><tr><td colspan='3' width='350' style='font-size:10px; font-family:Arial;text-align:left;font-weight: bold;border:1px solid black;background-color:#C5D5E9'>Detalle:</td></tr>";
                     try
                     {
@@ -124,6 +130,8 @@ namespace S10ERP_2018.Frontend_Alerta_Resultado_Operativo_C
                             str = str + "<tr>";
                             str = str + "<td colspan='3'  width='350' align='right' valign='top' style='font-size:10px; font-family:Arial;text-align:right;border:1px solid black'> " + rod.Recurso + "</td>";
                             str = str + "<td align='right' valign='top' style='font-size:10px; font-family:Arial;text-align:center;border:1px solid black' width='85'> " + rod.Presupuesto + "</td>";
+                            str = str + "<td align='right' valign='top' style='font-size:10px; font-family:Arial;text-align:center;border:1px solid black' width='85'> " + rod.Programado + "</td>";
+                            str = str + "<td align='right' valign='top' style='font-size:10px; font-family:Arial;text-align:center;border:1px solid black' width='85'> " + rod.Valorizado + "</td>";
                             str = str + "<td align='right' valign='top' style='font-size:10px; font-family:Arial;text-align:center;border:1px solid black' width='85'> " + rod.Reall + "</td></tr>";
                         }
                     }

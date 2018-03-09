@@ -1,7 +1,7 @@
 ﻿USE [INTERFACES]
 GO
 
-/****** Object:  StoredProcedure [dbo].[S10_Resultado_OperativoC]    Script Date: 07/03/2018 04:56:37 p.m. ******/
+/****** Object:  StoredProcedure [dbo].[S10_Resultado_OperativoC]    Script Date: 09/03/2018 09:12:26 a.m. ******/
 SET ANSI_NULLS ON
 GO
 
@@ -13,7 +13,7 @@ GO
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE [dbo].[S10_Resultado_OperativoC]
+ALTER PROCEDURE [dbo].[S10_Resultado_OperativoC]
 	-- Add the parameters for the stored procedure here
 
 AS
@@ -46,7 +46,7 @@ SELECT  LEFT(ror.CodProyecto, 5) AS CODPROYECTO,
                 NEXCOMS10.dbo.Proyecto AS pr ON LEFT(ror.CodProyecto, 5) = pr.CodProyecto inner join 
                 INTERFACES.dbo.S10_GerenciaRO tmp on
 				pr.CodProyecto+pre.CodPresupuesto=tmp.Codigo
-WHERE     (pr.Llave = 1) --and pp.TipoPresupuesto <>'B'
+WHERE     (pr.Llave = 1) and pp.TipoPresupuesto= 'M'
 GROUP BY ror.CODPROYECTO, ror.DesProyecto, pre.CODPRESUPUESTO, pre.Descripcion,  pp.TipoPresupuesto,Parcial
 order by ror.DesProyecto 
 
