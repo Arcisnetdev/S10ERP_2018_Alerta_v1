@@ -35,7 +35,7 @@ namespace S10ERP_2018.Frontend_Alerta_Resultado_Operativo_C
 
         private void EnvioAlertaPedidoSinAprobar()
         {
-            DateTime DateEnd = Convert.ToDateTime("31/03/2018").Date;
+            DateTime DateEnd = Convert.ToDateTime("31/12/2020").Date;
             DateTime DataStart = DateTime.Now.Date;
             int result = DateTime.Compare(DataStart, DateEnd);
             string diaRes = "Quedan: " + (DateEnd.Day - DataStart.Day) + "  dias de prueba. ";
@@ -59,7 +59,8 @@ namespace S10ERP_2018.Frontend_Alerta_Resultado_Operativo_C
             //message.Bcc.Add("lperez@nexcom.com.pe");
             //message.Bcc.Add("jguerrero@nexcom.com.pe");
 
-            message.From = new MailAddress("alerta@qlabsp.com", diaRes + "  Resultados Operativos.", Encoding.UTF8);
+            message.From = new MailAddress("alerta@qlabsp.com","Resultados Operativos.", Encoding.UTF8);
+            //message.From = new MailAddress("alerta@qlabsp.com", diaRes + "  Resultados Operativos.", Encoding.UTF8);
             //message.From = new MailAddress("noresponder@nexcom.com.pe", "Resultados Operativos.", Encoding.UTF8);
             message.Subject = "Alerta de Control -> Resultados Operativos";
             message.SubjectEncoding = Encoding.UTF8;

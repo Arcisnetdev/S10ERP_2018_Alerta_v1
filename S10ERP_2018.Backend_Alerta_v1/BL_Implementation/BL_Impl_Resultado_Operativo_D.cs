@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace S10ERP_2018.Backend_Alerta_v1.BL_Implementation
 {
-   public class BL_Impl_Resultado_Operativo_D : BL_Impl_Resultado_Operativo_D_Interface
+    public class BL_Impl_Resultado_Operativo_D : BL_Impl_Resultado_Operativo_D_Interface
     {
 
         private static Database _baseInterface;
@@ -45,6 +45,7 @@ namespace S10ERP_2018.Backend_Alerta_v1.BL_Implementation
                     //_baseInterface = new SqlDatabase("Data Source=SERVERERP;Initial Catalog=INTERFACES;User ID=consulta;Password=consulta");
                 }
                 return _baseInterface;
+                //    }
             }
         }
     }
