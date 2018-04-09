@@ -1,0 +1,42 @@
+﻿USE [INTERFACES]
+GO
+
+/****** Object:  View [dbo].[S10_Compras_001_003_Pedidos_Por_Atender(AR)]    Script Date: 09/04/2018 11:01:04 a.m. ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+
+
+
+
+
+CREATE VIEW [dbo].[S10_Compras_001_003_Pedidos_Por_Atender(AR)]
+AS
+
+
+select ped.CodProyecto, py.Descripcion as Proyecto, ped.CodAlmacen, pya.Descripcion as Almacen, CodPedido as NroPedido, ped.CodEstadoPedido,peds.Descripcion as Estado, ped.FechaPedido, ped.CreacionFecha,
+ped.ActualizacionFecha,  ped.FechaAprobacion,ped.TiempoEntrega, ped.CreacionUsuario,ped.UsuarioA,ped.TomarAlmacen,ped.Usuario, ped.CodPedidoInterno, ped.OrdenDeProduccion, 
+ped.DesEstadoCotizacion,ped.DesEstadoOrdenCompra, ped.DesEstadoAlmacen,cc.Descripcion as CentroCompra,ped.Observacion
+
+from NEXCOMS10.dbo.Pedido as ped INNER JOIN NEXCOMS10.dbo.Proyecto as py on ped.CodProyecto=py.CodProyecto INNER JOIN
+NEXCOMS10.dbo.ProyectoAlmacen pya on ped.CodProyecto=pya.CodProyecto and ped.CodAlmacen=pya.CodAlmacen INNER JOIN
+NEXCOMS10.dbo.PedidoEstado as peds on ped.CodEstadoPedido=peds.CodEstadoPedido INNER JOIN
+NEXCOMS10.dbo.CentroCompra as cc on ped.NroCC=cc.NroCC
+
+where ped.TomarAlmacen='0' and ped.CodEstadoPedido in ('06') and py.Llave='1' and DesEstadoOrdenCompra='Sin Orden de Compra' and DesEstadoAlmacen='Sin Ingreso'
+--ORDER BY vw.FechaGuia DESC
+
+
+
+
+
+
+GO
+
+

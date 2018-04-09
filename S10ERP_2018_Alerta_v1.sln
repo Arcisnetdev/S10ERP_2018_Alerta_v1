@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S10ERP_2018.Frontend_Alerta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S10ERP_2018.Frontend_Alerta_Resultado_Operativo_C", "S10ERP_2018.Frontend_Alerta_Resultado_Operativo_C\S10ERP_2018.Frontend_Alerta_Resultado_Operativo_C.csproj", "{84A7C6E0-00DA-4D76-B0EF-C8BD01684E06}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S10ERP_2018.Frontend_Alerta_Pedido_Sin_Atender", "S10ERP_2018.Frontend_Alerta_Pedido_Sin_Atender\S10ERP_2018.Frontend_Alerta_Pedido_Sin_Atender.csproj", "{726E8487-3E37-4733-B0D7-36412F20EA2F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,14 @@ Global
 		{84A7C6E0-00DA-4D76-B0EF-C8BD01684E06}.Release|Any CPU.Build.0 = Release|Any CPU
 		{84A7C6E0-00DA-4D76-B0EF-C8BD01684E06}.Release|x64.ActiveCfg = Release|Any CPU
 		{84A7C6E0-00DA-4D76-B0EF-C8BD01684E06}.Release|x64.Build.0 = Release|Any CPU
+		{726E8487-3E37-4733-B0D7-36412F20EA2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{726E8487-3E37-4733-B0D7-36412F20EA2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{726E8487-3E37-4733-B0D7-36412F20EA2F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{726E8487-3E37-4733-B0D7-36412F20EA2F}.Debug|x64.Build.0 = Debug|Any CPU
+		{726E8487-3E37-4733-B0D7-36412F20EA2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{726E8487-3E37-4733-B0D7-36412F20EA2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{726E8487-3E37-4733-B0D7-36412F20EA2F}.Release|x64.ActiveCfg = Release|Any CPU
+		{726E8487-3E37-4733-B0D7-36412F20EA2F}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

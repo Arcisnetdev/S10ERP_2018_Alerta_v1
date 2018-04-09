@@ -34,54 +34,30 @@ namespace S10ERP_2018.Frontend_Alerta_OC_SIn_Aprobar
 
         private void EnvioAlertaOCSinAprobar()
         {
-            DateTime DateEnd = Convert.ToDateTime("31/12/2020").Date;
-            DateTime DataStart = DateTime.Now.Date;
-            int result = DateTime.Compare(DataStart, DateEnd);
-            string diaRes = "Quedan: " + (DateEnd.Day - DataStart.Day) + "  dias de prueba. ";
-
             MailMessage message = new MailMessage();
             //Lista para envio a Operaciones
-            message.To.Add("epariona@siscoperu.com");
-            message.To.Add("jgarcia@incot.com.pe");
-            message.To.Add("hmonroy@incot.com.pe");
-            message.Bcc.Add("alerta@qlabsp.com");
-            //message.To.Add("arosales@nexcom.com.pe");
-            ////message.Bcc.Add("jcahuana@nexcom.com.pe");
-            ////message.Bcc.Add("asilva@nexcom.com.pe");
-            ////message.Bcc.Add("klandeo@nexcom.com.pe");
-            ////message.Bcc.Add("kvilca@nexcom.com.pe");
-            //message.Bcc.Add("jramirez@nexcom.com.pe");
+            message.To.Add("arosales@nexcom.com.pe");
+            //message.Bcc.Add("jcahuana@nexcom.com.pe");
+            //message.Bcc.Add("asilva@nexcom.com.pe");
+            //message.Bcc.Add("klandeo@nexcom.com.pe");
+            //message.Bcc.Add("kvilca@nexcom.com.pe");
+            //message.Bcc.Add("practicante5_logistica@nexcom.com.pe");
 
             //Lista para envio a GAF
             //message.Bcc.Add("srondon@nexcom.com.pe");
             //message.Bcc.Add("lperez@nexcom.com.pe");
             //message.Bcc.Add("jguerrero@nexcom.com.pe");
 
-            message.From = new MailAddress("alerta@qlabsp.com", "Ordenes de Compra, pendientes de Aprobación.", Encoding.UTF8);
-            //message.From = new MailAddress("alerta@qlabsp.com", diaRes + "  Ordenes de Compra, pendientes de Aprobación.", Encoding.UTF8);
-            //message.From = new MailAddress("noresponder@nexcom.com.pe", "Ordenes de Compra, pendientes de Aprobación.", Encoding.UTF8);
+            message.From = new MailAddress("noresponder@nexcom.com.pe", "Ordenes de Compra, pendientes de Aprobación.", Encoding.UTF8);
             message.Subject = "Alerta de Control -> Ordenes de Compra, pendientes de Aprobación";
             message.SubjectEncoding = Encoding.UTF8;
-            //message.Body = this.TextoEnvioAlertaOCSinAprobar();
-
-            if (result <= 0)
-            {
-                message.Body = this.TextoEnvioAlertaOCSinAprobar();
-            }
-            else
-            {
-                message.Body = this.TextoEnvioFinPrueba();
-            }
-            message.BodyEncoding = Encoding.UTF8;
+            message.Body = this.TextoEnvioAlertaOCSinAprobar();
+             message.BodyEncoding = Encoding.UTF8;
             message.IsBodyHtml = true;
-            SmtpClient client = new SmtpClient("smtp.ipage.com")
-            //SmtpClient client = new SmtpClient("192.168.100.2")
+            SmtpClient client = new SmtpClient("192.168.100.2")
             {
-                Port = 587,
-                Credentials = new System.Net.NetworkCredential("alerta@qlabsp.com", "Alerta$$123"),
-                //Port = 25,
-                Host = "pop.ipage.com"
-                //Host = "192.168.100.2"
+                Port = 25,
+                Host = "192.168.100.2"
             };
             try
             {
@@ -93,6 +69,49 @@ namespace S10ERP_2018.Frontend_Alerta_OC_SIn_Aprobar
             }
         }
 
+        private void EnvioAlertaOCSinAprobar2()
+        {
+            DateTime DateEnd = Convert.ToDateTime("31/12/2020").Date;
+            DateTime DataStart = DateTime.Now.Date;
+            int result = DateTime.Compare(DataStart, DateEnd);
+            string diaRes = "Quedan: " + (DateEnd.Day - DataStart.Day) + "  dias de prueba. ";
+
+            MailMessage message = new MailMessage();
+            //Lista para envio a Operaciones
+            //message.To.Add("epariona@siscoperu.com");
+            //message.To.Add("jgarcia@incot.com.pe");
+            //message.To.Add("hmonroy@incot.com.pe");
+            //message.Bcc.Add("alerta@qlabsp.com");
+
+            message.From = new MailAddress("alerta@qlabsp.com", "Ordenes de Compra, pendientes de Aprobación.", Encoding.UTF8);
+            //message.From = new MailAddress("alerta@qlabsp.com", diaRes + "  Ordenes de Compra, pendientes de Aprobación.", Encoding.UTF8);
+            message.Subject = "Alerta de Control -> Ordenes de Compra, pendientes de Aprobación";
+            message.SubjectEncoding = Encoding.UTF8;
+            if (result <= 0)
+            {
+                message.Body = this.TextoEnvioAlertaOCSinAprobar();
+            }
+            else
+            {
+                message.Body = this.TextoEnvioFinPrueba();
+            }
+            message.BodyEncoding = Encoding.UTF8;
+            message.IsBodyHtml = true;
+            SmtpClient client = new SmtpClient("smtp.ipage.com")
+            {
+                Port = 587,
+                Credentials = new System.Net.NetworkCredential("alerta@qlabsp.com", "Alerta$$123"),
+                Host = "pop.ipage.com"
+            };
+            try
+            {
+                client.Send(message);
+            }
+            catch (SmtpException ex)
+            {
+                SmtpException exception = ex;
+            }
+        }
 
         private string TextoEnvioAlertaOCSinAprobar()
         {
