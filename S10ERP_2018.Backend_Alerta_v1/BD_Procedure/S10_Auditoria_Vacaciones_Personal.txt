@@ -1,0 +1,69 @@
+﻿USE INTERFACES
+GO
+
+/****** Object:  StoredProcedure [dbo].[Auditoria_Vacacion]    Script Date: 10/04/2018 02:56:13 p.m. ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[Auditoria_Vacaciones_Personal]
+	-- Add the parameters for the stored procedure here
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+SELECT [IdItem]
+      ,[CodUser]
+      ,tmas.[Empleado] as Codigo
+      , pm.NombreCompleto as Nombre
+      ,Periodo
+      ,Derecho
+      ,Utilizado,Pendiente,[IP]
+      ,convert(varchar,([Fecha]),103)+' '+convert(varchar,([Fecha]),114) as Fecha
+  FROM INTERFACES.[dbo].[Tmp_Auditoria_Vacaciones_Personal] tmas inner join SPRING.dbo.PersonaMast pm on tmas.Empleado=pm.Persona where FlgEnvio='0'
+END
+GO
+
+
+
+USE INTERFACES
+GO
+
+/****** Object:  StoredProcedure [dbo].[Auditoria_Vacacion_Actualizar]    Script Date: 10/04/2018 02:56:16 p.m. ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+alter PROCEDURE [dbo].[Auditoria_Vacaciones_Personal_Actualizar] 
+	-- Add the parameters for the stored procedure here
+(
+	@pIDITEM varchar(10)) 
+
+AS
+BEGIN
+
+UPDATE Tmp_AuditingVacacion SET FlgEnvio='1' where IdItem=@pIDITEM
+
+END
+
+GO
+
+

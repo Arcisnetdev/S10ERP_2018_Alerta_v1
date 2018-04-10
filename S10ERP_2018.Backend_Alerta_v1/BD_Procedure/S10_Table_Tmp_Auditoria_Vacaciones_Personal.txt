@@ -1,0 +1,37 @@
+﻿USE INTERFACES
+GO
+
+/****** Object:  Table [dbo].[Tmp_AuditingVacacion]    Script Date: 10/04/2018 02:55:31 p.m. ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[Tmp_Auditoria_Vacaciones_Personal](
+	[IdItem] [int] IDENTITY(1,1) NOT NULL,
+	[CodUser] [varchar](250) NULL,
+	[Estado] [varchar](250) NULL,
+	[Empleado] [varchar](10) NULL,
+	[Periodo] [varchar](10) NULL,
+	[Derecho] [varchar](5) NULL,
+	[Utilizado] [varchar](5) NULL,
+	[Pendiente] [varchar](5) NULL,
+	[FlgEnvio] [bit] NULL CONSTRAINT [DF_Tmp_AuditingVacacion_FlgEnvio]  DEFAULT ((0)),
+	[IP] [varchar](250) NULL,
+	[Fecha] [datetime] NULL CONSTRAINT [DF_Tmp_AuditingVacacion_Fecha]  DEFAULT (getdate()),
+ CONSTRAINT [PK_Tmp_AuditingVacacion] PRIMARY KEY CLUSTERED 
+(
+	[IdItem] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+

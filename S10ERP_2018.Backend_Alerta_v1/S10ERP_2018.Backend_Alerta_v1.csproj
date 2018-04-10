@@ -64,6 +64,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BE_Data\BE_Auditoria_Planilla_P.cs" />
+    <Compile Include="BE_Data\BE_Auditoria_Planilla_Ps.cs" />
+    <Compile Include="BE_Data\BE_Auditoria_Vacaciones_Personal.cs" />
+    <Compile Include="BE_Data\BE_Auditoria_Vacaciones_Personals.cs" />
     <Compile Include="BE_Data\BE_ETE_ETEP_SeguimientoTransferencia.cs" />
     <Compile Include="BE_Data\BE_ETE_ETEP_SeguimientoTransferenciaGG.cs" />
     <Compile Include="BE_Data\BE_ETE_ETEP_SeguimientoTransferenciaGGs.cs" />
@@ -82,6 +86,10 @@
     <Compile Include="BE_Data\BE_Resultado_Operativo_D.cs" />
     <Compile Include="BE_Data\BE_Resultado_Operativo_Ds.cs" />
     <Compile Include="BE_Data\BE_Pedido_Sin_Atenders.cs" />
+    <Compile Include="BL_Implementation\BL_Impl_Auditoria_Planilla_P.cs" />
+    <Compile Include="BL_Implementation\BL_Impl_Auditoria_Planilla_P_Interface.cs" />
+    <Compile Include="BL_Implementation\BL_Impl_Auditoria_Vacaciones_Personal.cs" />
+    <Compile Include="BL_Implementation\BL_Impl_Auditoria_Vacaciones_Personal_Interface.cs" />
     <Compile Include="BL_Implementation\BL_Impl_ETE_ETEP_SeguimientoTransferencia.cs" />
     <Compile Include="BL_Implementation\BL_Impl_ETE_ETEP_SeguimientoTransferenciaGG.cs" />
     <Compile Include="BL_Implementation\BL_Impl_ETE_ETEP_SeguimientoTransferenciaGG_Interface.cs" />
@@ -100,8 +108,10 @@
     <Compile Include="BL_Implementation\BL_Impl_Resultado_Operativo_C_Interface.cs" />
     <Compile Include="BL_Implementation\BL_Impl_Resultado_Operativo_D.cs" />
     <Compile Include="BL_Implementation\BL_Impl_Resultado_Operativo_D_Interface.cs" />
+    <Compile Include="BL_ObjCOntrol\BL_ObjControl_Auditoria_Planilla_P.cs" />
+    <Compile Include="BL_ObjCOntrol\BL_ObjControl_Auditoria_Vacaciones_Personal.cs" />
     <Compile Include="BL_ObjCOntrol\BL_ObjControl_ETE_ETEP_SeguimientoTransferencia.cs" />
-    <Compile Include="BL_ObjCOntrol\BL_OBjControl_ETE_ETEP_SeguimientoTransferenciaGG.cs" />
+    <Compile Include="BL_ObjCOntrol\BL_ObjControl_ETE_ETEP_SeguimientoTransferenciaGG.cs" />
     <Compile Include="BL_ObjCOntrol\BL_ObjControl_IOC_SinDocumentoPago.cs" />
     <Compile Include="BL_ObjCOntrol\BL_ObjControl_Kardex_Ceros_Negativo.cs" />
     <Compile Include="BL_ObjCOntrol\BL_ObjControl_OC_SIn_Aprobar.cs" />
@@ -109,6 +119,8 @@
     <Compile Include="BL_ObjCOntrol\BL_ObjCOntrol_Pedido_Sin_Atender.cs" />
     <Compile Include="BL_ObjCOntrol\BL_ObjControl_Resultado_Operativo_C.cs" />
     <Compile Include="BL_ObjCOntrol\BL_ObjControl_Resultado_Operativo_D.cs" />
+    <Compile Include="BL_Utils\BL_Utils_Auditoria_Planilla_P.cs" />
+    <Compile Include="BL_Utils\BL_Utils_Auditoria_Vacaciones_Personal.cs" />
     <Compile Include="BL_Utils\BL_Utils_ETE_ETEP_SeguimientoTransferencia.cs" />
     <Compile Include="BL_Utils\BL_Utils_ETE_ETEP_SeguimientoTransferenciaGG.cs" />
     <Compile Include="BL_Utils\BL_Utils_IOC_SinDocumentoPago.cs" />
@@ -130,6 +142,10 @@
     <Content Include="BD_Procedure\S10_Resultado_OperativoC.txt" />
     <Content Include="BD_Procedure\S10_Resultado_OperativoD.txt" />
     <Content Include="BD_Procedure\S10_Compras_001_003_Pedidos_Por_Atender.txt" />
+    <Content Include="BD_Procedure\S10_Auditoria_Monto_Sueldo_p.txt" />
+    <Content Include="BD_Procedure\S10_Tabla_Auditoria_Planilla_P.txt" />
+    <Content Include="BD_Procedure\S10_Auditoria_Vacaciones_Personal.txt" />
+    <Content Include="BD_Procedure\S10_Table_Tmp_Auditoria_Vacaciones_Personal.txt" />
     <Content Include="BD_View\S10_Almacenes_001_003_ETE_ETEP_Seguimiento.txt" />
     <Content Include="BD_View\S10_Compras_001_001_Pedidos_Por_Aprobar%28AR%29.txt" />
     <Content Include="BD_View\S10_GerenciaRO.txt" />

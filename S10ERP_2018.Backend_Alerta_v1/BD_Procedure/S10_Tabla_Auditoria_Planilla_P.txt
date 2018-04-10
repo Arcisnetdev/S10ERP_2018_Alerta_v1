@@ -1,0 +1,41 @@
+﻿USE [INTERFACES]
+GO
+
+/****** Object:  Table [dbo].[Tmp_AuditoriaSueldo]    Script Date: 10/04/2018 02:38:51 p.m. ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[Tmp_AuditoriaSueldo](
+	[IdItem] [int] IDENTITY(1,1) NOT NULL,
+	[CodUser] [varchar](250) NULL,
+	[Estado] [varchar](250) NULL,
+	[Empleado] [varchar](10) NULL,
+	[MontoLocal] [varchar](250) NULL,
+	[FlgEnvio] [bit] NULL,
+	[IP] [varchar](250) NULL,
+	[Fecha] [datetime] NULL,
+	[MontoLocalA] [varchar](250) NULL,
+ CONSTRAINT [PK_Tmp_AuditingSueldo] PRIMARY KEY CLUSTERED 
+(
+	[IdItem] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+ALTER TABLE [dbo].[Tmp_AuditoriaSueldo] ADD  CONSTRAINT [DF_Tmp_AuditingSueldo_FlgEnvio]  DEFAULT ((0)) FOR [FlgEnvio]
+GO
+
+ALTER TABLE [dbo].[Tmp_AuditoriaSueldo] ADD  CONSTRAINT [DF_Tmp_AuditingSueldo_Fecha]  DEFAULT (getdate()) FOR [Fecha]
+GO
+
+

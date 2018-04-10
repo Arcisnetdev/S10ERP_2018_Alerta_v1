@@ -1,0 +1,78 @@
+﻿USE [INTERFACES]
+GO
+
+/****** Object:  StoredProcedure [dbo].[Auditoria_Monto_Sueldo]    Script Date: 10/04/2018 02:39:43 p.m. ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[Auditoria_Monto_Sueldo]
+	-- Add the parameters for the stored procedure here
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+SELECT [IdItem],[CodUser],tmas.[Empleado] as Codigo, pm.NombreCompleto as Nombre
+,[MontoLocal],[MontoLocalA],[IP],convert(varchar,([Fecha]),103)+' '+convert(varchar,([Fecha]),114) as Fecha,
+      RTRIM(hpe.Descripcion) AS Puesto, emp.CentroCostos,de.description as Gerencia, hde.descripcion as Area
+      
+      
+  FROM [INTERFACES].[dbo].[Tmp_AuditoriaSueldo] tmas inner join SPRING.dbo.PersonaMast pm on tmas.Empleado=pm.Persona 
+  left outer join SPRING.DBO.EmpleadoMast emp on emp.Empleado = pm.Persona  left outer join Spring.dbo.HR_PuestoEmpresa AS hpe ON emp.CodigoCargo = hpe.CodigoPuesto
+  left outer join Spring.dbo.HR_Departamento AS hde ON emp.DepartamentoOperacional = hde.Departamento left outer join Spring.dbo.departmentmst AS de ON emp.DeptoOrganizacion = de.department
+  --order by pm.NombreCompleto asc
+  where FlgEnvio='0'
+END
+
+
+
+--select * from SPRING.dbo.PersonaMast
+--select * from SPRING.DBO.EmpleadoMast 
+GO
+
+
+
+
+USE [INTERFACES]
+GO
+
+/****** Object:  StoredProcedure [dbo].[Auditoria_Monto_Sueldo_Actualizar]    Script Date: 10/04/2018 02:39:46 p.m. ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[Auditoria_Monto_Sueldo_Actualizar] 
+	-- Add the parameters for the stored procedure here
+(
+	@pIDITEM varchar(10)) 
+
+AS
+BEGIN
+
+UPDATE Tmp_AuditoriaSueldo SET FlgEnvio='1' where IdItem=@pIDITEM
+
+END
+
+
+GO
+
+

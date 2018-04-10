@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace S10ERP_2018.Backend_Alerta_v1.BL_ObjCOntrol
 {
-  public  class BL_OBjControl_ETE_ETEP_SeguimientoTransferenciaGG
+  public  class BL_ObjControl_ETE_ETEP_SeguimientoTransferenciaGG
     {
 
         public static object PoblarETE_ETEP_SeguimientoTransferenciaGGSelAll()

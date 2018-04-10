@@ -87,7 +87,7 @@ namespace S10ERP_2018.Frontend_Alerta_ETE_ETEP_SeguimientoTransf
                 "<td width='880' valign='top' style='text-align:center;background-color:#DDDDDD;font-size:8px; font-family:Arial'>PROYECTO_DESTINO</td></tr>";
             try
             {
-                enumerator = ((IEnumerable)BL_OBjControl_ETE_ETEP_SeguimientoTransferenciaGG.PoblarETE_ETEP_SeguimientoTransferenciaGGSelAll()).GetEnumerator();
+                enumerator = ((IEnumerable)BL_ObjControl_ETE_ETEP_SeguimientoTransferenciaGG.PoblarETE_ETEP_SeguimientoTransferenciaGGSelAll()).GetEnumerator();
                 while (enumerator.MoveNext())
                 {
                     BE_ETE_ETEP_SeguimientoTransferenciaGG current = (BE_ETE_ETEP_SeguimientoTransferenciaGG)enumerator.Current;
