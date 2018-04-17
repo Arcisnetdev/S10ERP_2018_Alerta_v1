@@ -146,6 +146,7 @@
     <Content Include="BD_Procedure\S10_Tabla_Auditoria_Planilla_P.txt" />
     <Content Include="BD_Procedure\S10_Auditoria_Vacaciones_Personal.txt" />
     <Content Include="BD_Procedure\S10_Table_Tmp_Auditoria_Vacaciones_Personal.txt" />
+    <Content Include="BD_Procedure\S10_Alerta_Auditoria_Pedido_Trigger.txt" />
     <Content Include="BD_View\S10_Almacenes_001_003_ETE_ETEP_Seguimiento.txt" />
     <Content Include="BD_View\S10_Compras_001_001_Pedidos_Por_Aprobar%28AR%29.txt" />
     <Content Include="BD_View\S10_GerenciaRO.txt" />
