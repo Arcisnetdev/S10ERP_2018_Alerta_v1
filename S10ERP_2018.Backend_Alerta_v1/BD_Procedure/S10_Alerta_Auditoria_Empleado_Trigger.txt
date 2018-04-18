@@ -1,0 +1,157 @@
+﻿USE [INTERFACES]
+GO
+
+/****** Object:  Table [dbo].[Tmp_AuditoriaPedido]    Script Date: 17/04/2018 05:41:20 p.m. ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+-- Tabla que almacenara el rersultado del trigger (BD Alterna)
+CREATE TABLE dbo.Tmp_AuditoriaEmpleado(
+	Empleado Int NOT NULL,
+	TipoPlanilla Char (2) NOT NULL,
+	EstadoEmpleado Char(1) NOT NULL,
+	FechaIngreso Datetime NULL,
+	FechaInicioContrato Datetime NULL,
+	FechaFinContrato Datetime NULL,
+	FechaCese Datetime NULL,
+	CentroCostos Char(10) NULL,
+	DeptoOrganizacion Char(3) NULL,
+	UltimoUsuario Char(20) NULL,
+	UltimaFechaModif Datetime NULL,
+	Flag varchar(2) NOT NULL,
+	FechaInsercion Datetime NOT NULL,
+	Maquina varchar(128) NULL,
+	Programa varchar(128) NULL,
+	IdProceso int NOT NULL,
+	UsuarioRegistrador varchar(128) NULL
+ CONSTRAINT [PK_Empleado] PRIMARY KEY CLUSTERED 
+(
+	[Empleado] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+ALTER TABLE dbo.Tmp_AuditoriaEmpleado ADD  DEFAULT ((0)) FOR [Flag]
+GO
+
+--exec sp_help EmpleadoMast
+
+USE Spring
+Go
+--Procedimiento para ser Invocado por el Trigger (BD App)
+CREATE PROCEDURE dbo.SP_ActualizaEmpleado
+	@Empleado Int,
+	@TipoPlanilla Char (2),
+	@EstadoEmpleado Char(1),
+	@FechaIngreso Datetime,
+	@FechaInicioContrato Datetime,
+	@FechaFinContrato Datetime,
+	@FechaCese Datetime ,
+	@CentroCostos Char(10) ,
+	@DeptoOrganizacion Char(3) ,
+	@UltimoUsuario Char(20) ,
+	@UltimaFechaModif Datetime ,
+	@FechaInsercion Datetime ,
+	@Maquina varchar(128) ,
+	@Programa varchar(128) ,
+	@IdProceso int,
+	@UsuarioRegistrador varchar(128)
+	AS
+  BEGIN
+      -- SET NOCOUNT ON added to prevent extra result sets from
+      SET NOCOUNT ON;
+
+      IF EXISTS (SELECT Empleado   FROM   Interfaces.dbo.Tmp_AuditoriaEmpleado    WHERE  Empleado = @Empleado)
+
+        UPDATE Interfaces.dbo.Tmp_AuditoriaEmpleado
+        SET    
+	--Empleado=@Empleado,
+	TipoPlanilla=@TipoPlanilla,
+	EstadoEmpleado=@EstadoEmpleado,
+	FechaIngreso=@FechaIngreso,
+	FechaInicioContrato=@FechaInicioContrato,
+	FechaFinContrato=@FechaFinContrato,
+	FechaCese=@FechaCese,
+	CentroCostos=@CentroCostos,
+	DeptoOrganizacion=@DeptoOrganizacion,
+	UltimoUsuario=@UltimoUsuario,
+	UltimaFechaModif=@UltimaFechaModif,
+	Flag='0',
+	FechaInsercion=@FechaInsercion,
+	Maquina=@Maquina,
+	Programa=@Programa,
+	IdProceso=@IdProceso,
+	UsuarioRegistrador=@UsuarioRegistrador
+	where Empleado = @Empleado
+
+      ELSE
+	    INSERT INTO Interfaces.dbo.Tmp_AuditoriaEmpleado ( Empleado,TipoPlanilla,EstadoEmpleado,FechaIngreso,FechaInicioContrato,FechaFinContrato,FechaCese,CentroCostos,DeptoOrganizacion,UltimoUsuario,UltimaFechaModif,
+		FechaInsercion,	Maquina,Programa,IdProceso,UsuarioRegistrador)
+
+        VALUES(@Empleado,@TipoPlanilla,@EstadoEmpleado,@FechaIngreso,@FechaInicioContrato,@FechaFinContrato,@FechaCese,@CentroCostos,@DeptoOrganizacion,@UltimoUsuario,@UltimaFechaModif,@FechaInsercion,
+		@Maquina,@Programa,@IdProceso,@UsuarioRegistrador)
+  END
+  GO
+
+  --Trigger que audita los cambios en los pedidos (BD App)
+CREATE TRIGGER TG_AuditoriaEmpleado ON dbo.EmpleadoMast
+WITH EXECUTE AS CALLER
+FOR UPDATE
+AS
+Declare @Empleado Int
+Declare @TipoPlanilla Char (2)
+Declare @EstadoEmpleado Char(1)
+Declare @FechaIngreso Datetime
+Declare @FechaInicioContrato Datetime
+Declare @FechaFinContrato Datetime
+Declare @FechaCese Datetime 
+Declare @CentroCostos Char(10)
+Declare @DeptoOrganizacion Char(3)
+Declare @UltimoUsuario Char(20)
+Declare @UltimaFechaModif Datetime 
+Declare @FechaInsercion Datetime
+Declare @Maquina varchar(128)
+Declare @Programa varchar(128)
+Declare @IdProceso int
+Declare @UsuarioRegistrador varchar(128)
+
+print 'Inicializacion de procesos' 
+
+Select @Maquina = rtrim(hostname),@Programa = rtrim(program_name) 
+	From master..sysprocesses Where spid = @@spid
+
+select @Empleado=Empleado, @TipoPlanilla=TipoPlanilla, @EstadoEmpleado=EstadoEmpleado, @FechaIngreso=FechaIngreso, @FechaInicioContrato=FechaInicioContrato, @FechaFinContrato=FechaFinContrato, @FechaCese=FechaCese,
+@CentroCostos=CentroCostos, @DeptoOrganizacion=DeptoOrganizacion, @UltimoUsuario=UltimoUsuario, @UltimaFechaModif=UltimaFechaModif, @FechaInsercion=getdate(),@UsuarioRegistrador=suser_sname()
+from inserted 
+
+ IF (@EstadoEmpleado = '0' OR @EstadoEmpleado ='1' OR @EstadoEmpleado ='2' OR @EstadoEmpleado ='3')
+
+  BEGIN
+ exec dbo.SP_ActualizaEmpleado @Empleado, @TipoPlanilla, @EstadoEmpleado, @FechaIngreso, @FechaInicioContrato, @FechaFinContrato, @FechaCese, @CentroCostos, @DeptoOrganizacion,
+ @UltimoUsuario, @UltimaFechaModif, @FechaInsercion, @Maquina,@Programa,@@spid,@UsuarioRegistrador
+ 
+END
+GO 
+
+--SELECT
+--    Object_name(so .parent_object_id) Parent_Name,
+--    so .name ObjectName,
+--    so .type_desc [Type Description],
+--    so .create_date [Create Date],
+--    sm.definition [Text]
+--FROM   sys .objects so
+--INNER JOIN sys. sql_modules sm
+--ON so.object_id = sm.object_id
+--WHERE  so .type = 'TR'
+--order by Parent_Name asc
+
+--select * From master..sysprocesses Where spid=1

@@ -1,0 +1,76 @@
+﻿USE [INTERFACES]
+GO
+
+/****** Object:  StoredProcedure [dbo].[Auditoria_Empleados]    Script Date: 18/04/2018 12:30:32 p.m. ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[Auditoria_Empleados]
+	-- Add the parameters for the stored procedure here
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+select ae.Empleado as CodEmp,pm.NombreCompleto,pm.Documento as DNI,ae.TipoPlanilla,(CASE WHEN ae.EstadoEmpleado = 0 THEN 'ACTIVO' WHEN ae.EstadoEmpleado = 1 THEN 'SUBSIDIO' WHEN ae.EstadoEmpleado = 2 
+THEN 'CESADO' WHEN ae.EstadoEmpleado = 3 THEN 'SUSPENDIDO' END) AS Estado,RTRIM(hpe.Descripcion) AS Cargo, CONVERT(varchar, ae.FechaIngreso, 111) as FechaIngreso,CONVERT(varchar, ae.FechaInicioContrato, 111) as FechaInicioContrato,
+CONVERT(varchar, ae.FechaFinContrato, 111) as FechaFinContrato,CONVERT(varchar, ae.FechaCese, 111) as FechaCese,ae.CentroCostos,ae.DeptoOrganizacion,ae.UltimoUsuario,
+CONVERT(varchar, ae.UltimaFechaModif, 111) as UltimaFechaModif
+from dbo.Tmp_AuditoriaEmpleado ae INNER JOIN SPRING.dbo.EmpleadoMast em on ae.Empleado=em.Empleado LEFT OUTER JOIN 
+SPRING.dbo.PersonaMast pm on em.Empleado=pm.Persona LEFT OUTER JOIN
+Spring.dbo.HR_PuestoEmpresa AS hpe on em.CodigoCargo=hpe.CodigoPuesto
+Where ae.Empleado >=1 and flag='0'
+END
+
+
+GO
+
+
+
+USE [INTERFACES]
+GO
+
+/****** Object:  StoredProcedure [dbo].[Auditoria_Empleados_Actualizar]    Script Date: 18/04/2018 12:30:35 p.m. ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[Auditoria_Empleados_Actualizar] 
+	-- Add the parameters for the stored procedure here
+(
+	@pIDITEM varchar(10)) 
+
+AS
+BEGIN
+
+UPDATE Tmp_AuditoriaEmpleado SET Flag='1' where Empleado=@pIDITEM
+
+END
+
+
+
+GO
+
+
