@@ -149,7 +149,7 @@ select @NroOrden=NroOrden, @CodProyecto=CodProyecto,@CodProveedor=CodProveedor,@
 @FechaAprobacion=FechaAprobacion, @Observacion=Observacion,@FechaInsercion=getdate()
  from inserted
 
- IF (@CodEstado in ('02'))
+ IF (@CodEstado = ('02') and @FechaEnvioAprobacion <> NULL)
   BEGIN
  exec dbo.SP_ActualizaOrdenDeCompra @NroOrden, @CodProyecto,	@CodProveedor, @CodOrden, @CodFormaDePago, @CodMoneda, @CodEstado, @FechaOrden, @CreacionUsuario, @UsuarioRegistrador, @ValorNeto, 
  @IGV, @ValorTotal, @TipoOrden, @CreacionFecha, @FechaEnvioAprobacion, @FechaAprobacion, @Observacion, @FechaInsercion, @Maquina, @Programa, @@spid
