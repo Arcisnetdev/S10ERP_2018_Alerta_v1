@@ -34,7 +34,7 @@ namespace S10ERP_2018.Frontend_Alerta_Pedido_Sin_Atender
                }
         private void EnvioAlertaPedidoSinAprobar()
         {
-            DateTime DateEnd = Convert.ToDateTime("15/04/2018").Date;
+            DateTime DateEnd = Convert.ToDateTime("31/12/2020").Date;
             DateTime DataStart = DateTime.Now.Date;
             int result = DateTime.Compare(DataStart, DateEnd);
             string diaRes = "Quedan: " + (DateEnd.Day - DataStart.Day) + "  dias de prueba. ";
@@ -57,8 +57,8 @@ namespace S10ERP_2018.Frontend_Alerta_Pedido_Sin_Atender
             //message.Bcc.Add("lperez@nexcom.com.pe");
             //message.Bcc.Add("jguerrero@nexcom.com.pe");
 
-            //message.From = new MailAddress("alerta@qlabsp.com", "Pedidos de Compra Aprobados, pendientes de Atender.", Encoding.UTF8);
-            message.From = new MailAddress("alerta@qlabsp.com", diaRes + "Pedidos de Compra Aprobados, pendientes de Atender.", Encoding.UTF8);
+            message.From = new MailAddress("alerta@qlabsp.com", "Pedidos de Compra Aprobados, pendientes de Atender.", Encoding.UTF8);
+            //message.From = new MailAddress("alerta@qlabsp.com", diaRes + "Pedidos de Compra Aprobados, pendientes de Atender.", Encoding.UTF8);
             //message.From = new MailAddress("noresponder@nexcom.com.pe", "Pedidos de Compra Aprobados, pendientes de Atender.", Encoding.UTF8);
             message.Subject = "Alerta de Control -> Pedidos de Compra Aprobados, pendientes de Atender";
             message.SubjectEncoding = Encoding.UTF8;
