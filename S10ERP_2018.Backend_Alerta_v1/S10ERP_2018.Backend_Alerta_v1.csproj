@@ -139,7 +139,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BD_Procedure\Kardex_Cantidades_Cero_Negativos.txt" />
+    <Content Include="BD_Procedure\S10_Kardex_Cantidades_Cero_Negativos.txt" />
     <Content Include="BD_Procedure\S10_Pedidos_Sin_Aprobar.txt" />
     <Content Include="BD_Procedure\S10_Orden_Compra_Sin_Aprobar.txt" />
     <Content Include="BD_Procedure\S10_GuiasIOC_SinFacturar.txt" />
@@ -155,6 +155,7 @@
     <Content Include="BD_Procedure\S10_Alerta_Auditoria_Pedido_Trigger.txt" />
     <Content Include="BD_Procedure\S10_Alerta_Auditoria_Empleado_Trigger.txt" />
     <Content Include="BD_Procedure\S10_Alerta_Auditoria_Empleado.txt" />
+    <Content Include="BD_Procedure\S10_Alerta_Orden_Compra_Trigger.txt" />
     <Content Include="BD_View\S10_Almacenes_001_003_ETE_ETEP_Seguimiento.txt" />
     <Content Include="BD_View\S10_Compras_001_001_Pedidos_Por_Aprobar%28AR%29.txt" />
     <Content Include="BD_View\S10_GerenciaRO.txt" />

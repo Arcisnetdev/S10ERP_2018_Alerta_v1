@@ -1,0 +1,157 @@
+﻿USE [INTERFACES]
+GO
+
+/****** Object:  Table [dbo].[Tbl_Prueba]    Script Date: 17/04/2018 09:24:20 a.m. ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- Tabla que almacenara el rersultado del trigger (BD Alterna)
+CREATE TABLE [dbo].[Tmp_AuditoriaOrdenDeCompra](
+	--NroAuditoria int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	NroOrden uniqueidentifier NOT NULL,
+	CodProyecto varchar(8) NOT NULL,
+	CodProveedor varchar(8) NOT NULL,
+	CodOrden varchar(12) NOT NULL,
+	CodFormaDePago Varchar (2) NOT NULL,
+	CodMoneda Varchar(2) NOT NULL,
+	CodEstado varchar(2) NOT NULL,
+	FechaOrden Datetime NOT NULL, --Fecha
+	CreacionUsuario varchar(128) NOT NULL,
+	UsuarioRegistrador varchar(128) NOT NULL,
+	ValorNeto Numeric (28,10) NULL,
+	IGV Numeric(28,19) NULL,
+	ValorTotal Numeric(28,10) NULL,
+	TipoOrden Tinyint NULL,
+	CreacionFecha Datetime NOT NULL, 
+	FechaEnvioAprobacion Datetime NULL, 
+	FechaAprobacion Datetime NULL, 
+	Observacion varchar(8000) NULL,
+	Flag varchar(2) NOT NULL DEFAULT(0),
+	FechaInsercion Datetime NOT NULL,
+	Maquina Varchar(128) NULL,
+	Programa Varchar(128) NULL,
+	IdProceso Int NOT NULL,
+	CONSTRAINT [NroOrden] PRIMARY KEY CLUSTERED
+	(
+	[NroOrden] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+USE NEXCOMS10
+Go
+--Procedimiento para ser Invocado por el Trigger (BD App)
+CREATE PROCEDURE dbo.SP_ActualizaOrdenDeCompra
+	@NroOrden uniqueidentifier,
+	@CodProyecto varchar(8),
+	@CodProveedor varchar(8),
+	@CodOrden varchar(12),
+	@CodFormaDePago Varchar (2),
+	@CodMoneda Varchar(2),
+	@CodEstado varchar(2),
+	@FechaOrden Datetime , --Fecha
+	@CreacionUsuario varchar(128),
+	@UsuarioRegistrador varchar(128),
+	@ValorNeto Numeric (28,10) ,
+	@IGV Numeric(28,19) ,
+	@ValorTotal Numeric(28,10) ,
+	@TipoOrden Tinyint ,
+	@CreacionFecha Datetime , 
+	@FechaEnvioAprobacion Datetime , 
+	@FechaAprobacion Datetime , 
+	@Observacion varchar(8000) ,
+	@FechaInsercion Datetime ,
+	@Maquina Varchar(128) ,
+	@Programa Varchar(128) ,
+	@IdProceso Int
+AS
+  BEGIN
+      -- SET NOCOUNT ON added to prevent extra result sets from
+      SET NOCOUNT ON;
+
+      IF EXISTS (SELECT NroOrden   FROM   Interfaces.dbo.Tmp_AuditoriaOrdenDeCompra    WHERE  NroOrden = @NroOrden)
+
+        UPDATE Interfaces.dbo.Tmp_AuditoriaOrdenDeCompra
+        SET 
+		--NroOrden=@NroOrden,
+		CodProyecto=@CodProyecto,
+		CodProveedor=@CodProveedor,
+		CodOrden=@CodOrden,
+		CodFormaDePago=@CodFormaDePago,
+		CodMoneda=@CodMoneda,
+		CodEstado=@CodEstado,
+		FechaOrden=@FechaOrden, --Fecha
+		CreacionUsuario=@CreacionUsuario,
+		UsuarioRegistrador=@UsuarioRegistrador,
+		ValorNeto=@ValorNeto,
+		IGV=@IGV,
+		ValorTotal=@ValorTotal,
+		TipoOrden=@TipoOrden,
+		CreacionFecha=@CreacionFecha, 
+		FechaEnvioAprobacion=@FechaEnvioAprobacion, 
+		FechaAprobacion=@FechaAprobacion, 
+		Observacion=@Observacion,
+		Flag='3',
+		FechaInsercion=@FechaInsercion,
+		Maquina=@Maquina,
+		Programa=@Programa,
+		IdProceso=@IdProceso
+		where NroOrden=@NroOrden
+
+      ELSE
+	    INSERT INTO Interfaces.dbo.Tmp_AuditoriaOrdenDeCompra ( NroOrden, CodProyecto, CodProveedor, CodOrden, CodFormaDePago, CodMoneda, CodEstado, FechaOrden, CreacionUsuario, UsuarioRegistrador, 
+		ValorNeto, IGV, ValorTotal, TipoOrden, CreacionFecha, FechaEnvioAprobacion, FechaAprobacion, Observacion, FechaInsercion, Maquina, Programa, IdProceso)
+
+        VALUES(@NroOrden, @CodProyecto, @CodProveedor, @CodOrden, @CodFormaDePago, @CodMoneda, @CodEstado, @FechaOrden,@CreacionUsuario, @UsuarioRegistrador, @ValorNeto, @IGV, @ValorTotal,@TipoOrden,
+		@CreacionFecha, @FechaEnvioAprobacion, @FechaAprobacion, @Observacion, @FechaInsercion, @Maquina, @Programa, @IdProceso)
+  END
+  GO
+
+
+  --Trigger que audita los cambios en los pedidos (BD App)
+CREATE TRIGGER TG_AuditoriaOrdenDeCompra ON dbo.OrdenDeCompra
+WITH EXECUTE AS CALLER
+FOR UPDATE
+AS
+	Declare @NroOrden uniqueidentifier
+	Declare @CodProyecto varchar(8)
+	Declare @CodProveedor varchar(8)
+	Declare @CodOrden varchar(12)
+	Declare @CodFormaDePago Varchar (2)
+	Declare @CodMoneda Varchar(2)
+	Declare @CodEstado varchar(2)
+	Declare @FechaOrden Datetime  --Fecha
+	Declare @CreacionUsuario varchar(128)
+	Declare @UsuarioRegistrador varchar(128)
+	Declare @ValorNeto Numeric (28,10)
+	Declare @IGV Numeric(28,19)
+	Declare @ValorTotal Numeric(28,10) 
+	Declare @TipoOrden Tinyint 
+	Declare @CreacionFecha Datetime 
+	Declare @FechaEnvioAprobacion Datetime 
+	Declare @FechaAprobacion Datetime 
+	Declare @Observacion varchar(8000)
+	Declare @FechaInsercion Datetime 
+	Declare @Maquina Varchar(128) 
+	Declare @Programa Varchar(128) 
+	Declare @IdProceso Int
+
+print 'Inicializacion de procesos' 
+
+Select @Maquina = rtrim(hostname),@Programa = rtrim(program_name) 
+	From master..sysprocesses Where spid = @@spid
+
+select @NroOrden=NroOrden, @CodProyecto=CodProyecto,@CodProveedor=CodProveedor,@CodOrden=CodOrden,@CodFormaDePago=CodFormaDePago,@CodMoneda=CodMoneda,@CodEstado=CodEstado,	@FechaOrden=Fecha,
+@CreacionUsuario=CreacionUsuario, @UsuarioRegistrador=suser_sname(),@ValorNeto=ValorNeto,@IGV=IGV,@ValorTotal=ValorTotal,@TipoOrden=TipoOrden,@CreacionFecha=CreacionFecha, @FechaEnvioAprobacion=FechaEnvioAprobacion, 
+@FechaAprobacion=FechaAprobacion, @Observacion=Observacion,@FechaInsercion=getdate()
+ from inserted
+
+ IF (@CodEstado in ('02'))
+  BEGIN
+ exec dbo.SP_ActualizaOrdenDeCompra @NroOrden, @CodProyecto,	@CodProveedor, @CodOrden, @CodFormaDePago, @CodMoneda, @CodEstado, @FechaOrden, @CreacionUsuario, @UsuarioRegistrador, @ValorNeto, 
+ @IGV, @ValorTotal, @TipoOrden, @CreacionFecha, @FechaEnvioAprobacion, @FechaAprobacion, @Observacion, @FechaInsercion, @Maquina, @Programa, @@spid
+END
+GO 
