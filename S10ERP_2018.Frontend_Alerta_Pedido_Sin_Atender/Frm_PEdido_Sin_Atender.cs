@@ -69,7 +69,7 @@ namespace S10ERP_2018.Frontend_Alerta_Pedido_Sin_Atender
             }
             else
             {
-                message.Body = this.TextoEnvioFinPrueba();
+               // message.Body = this.TextoEnvioFinPrueba();
             }
 
             message.BodyEncoding = Encoding.UTF8;

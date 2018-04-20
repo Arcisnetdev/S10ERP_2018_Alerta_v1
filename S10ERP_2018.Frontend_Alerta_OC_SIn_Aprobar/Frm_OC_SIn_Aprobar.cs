@@ -27,47 +27,47 @@ namespace S10ERP_2018.Frontend_Alerta_OC_SIn_Aprobar
 
             if (controls.Count > 0)
             {
-                this.EnvioAlertaOCSinAprobar();
+                this.EnvioAlertaOCSinAprobar2();
             }
             this.Dispose();
         }
 
-        private void EnvioAlertaOCSinAprobar()
-        {
-            MailMessage message = new MailMessage();
-            //Lista para envio a Operaciones
-            message.To.Add("arosales@nexcom.com.pe");
-            //message.Bcc.Add("jcahuana@nexcom.com.pe");
-            //message.Bcc.Add("asilva@nexcom.com.pe");
-            //message.Bcc.Add("klandeo@nexcom.com.pe");
-            //message.Bcc.Add("kvilca@nexcom.com.pe");
-            //message.Bcc.Add("practicante5_logistica@nexcom.com.pe");
+        //private void EnvioAlertaOCSinAprobar()
+        //{
+        //    MailMessage message = new MailMessage();
+        //    //Lista para envio a Operaciones
+        //    //message.To.Add("arosales@nexcom.com.pe");
+        //    //message.Bcc.Add("jcahuana@nexcom.com.pe");
+        //    //message.Bcc.Add("asilva@nexcom.com.pe");
+        //    //message.Bcc.Add("klandeo@nexcom.com.pe");
+        //    //message.Bcc.Add("kvilca@nexcom.com.pe");
+        //    //message.Bcc.Add("practicante5_logistica@nexcom.com.pe");
 
-            //Lista para envio a GAF
-            //message.Bcc.Add("srondon@nexcom.com.pe");
-            //message.Bcc.Add("lperez@nexcom.com.pe");
-            //message.Bcc.Add("jguerrero@nexcom.com.pe");
+        //    //Lista para envio a GAF
+        //    //message.Bcc.Add("srondon@nexcom.com.pe");
+        //    //message.Bcc.Add("lperez@nexcom.com.pe");
+        //    //message.Bcc.Add("jguerrero@nexcom.com.pe");
 
-            message.From = new MailAddress("noresponder@nexcom.com.pe", "Ordenes de Compra, pendientes de Aprobación.", Encoding.UTF8);
-            message.Subject = "Alerta de Control -> Ordenes de Compra, pendientes de Aprobación";
-            message.SubjectEncoding = Encoding.UTF8;
-            message.Body = this.TextoEnvioAlertaOCSinAprobar();
-             message.BodyEncoding = Encoding.UTF8;
-            message.IsBodyHtml = true;
-            SmtpClient client = new SmtpClient("192.168.100.2")
-            {
-                Port = 25,
-                Host = "192.168.100.2"
-            };
-            try
-            {
-                client.Send(message);
-            }
-            catch (SmtpException ex)
-            {
-                SmtpException exception = ex;
-            }
-        }
+        //    message.From = new MailAddress("noresponder@nexcom.com.pe", "Ordenes de Compra, pendientes de Aprobación.", Encoding.UTF8);
+        //    message.Subject = "Alerta de Control -> Ordenes de Compra, pendientes de Aprobación";
+        //    message.SubjectEncoding = Encoding.UTF8;
+        //    message.Body = this.TextoEnvioAlertaOCSinAprobar();
+        //     message.BodyEncoding = Encoding.UTF8;
+        //    message.IsBodyHtml = true;
+        //    SmtpClient client = new SmtpClient("192.168.100.2")
+        //    {
+        //        Port = 25,
+        //        Host = "192.168.100.2"
+        //    };
+        //    try
+        //    {
+        //        client.Send(message);
+        //    }
+        //    catch (SmtpException ex)
+        //    {
+        //        SmtpException exception = ex;
+        //    }
+        //}
 
         private void EnvioAlertaOCSinAprobar2()
         {
@@ -78,10 +78,10 @@ namespace S10ERP_2018.Frontend_Alerta_OC_SIn_Aprobar
 
             MailMessage message = new MailMessage();
             //Lista para envio a Operaciones
-            //message.To.Add("epariona@siscoperu.com");
-            //message.To.Add("jgarcia@incot.com.pe");
-            //message.To.Add("hmonroy@incot.com.pe");
-            //message.Bcc.Add("alerta@qlabsp.com");
+            message.To.Add("epariona@siscoperu.com");
+            message.To.Add("jgarcia@incot.com.pe");
+            message.To.Add("hmonroy@incot.com.pe");
+            message.Bcc.Add("alerta@qlabsp.com");
 
             message.From = new MailAddress("alerta@qlabsp.com", "Ordenes de Compra, pendientes de Aprobación.", Encoding.UTF8);
             //message.From = new MailAddress("alerta@qlabsp.com", diaRes + "  Ordenes de Compra, pendientes de Aprobación.", Encoding.UTF8);
@@ -93,7 +93,7 @@ namespace S10ERP_2018.Frontend_Alerta_OC_SIn_Aprobar
             }
             else
             {
-                message.Body = this.TextoEnvioFinPrueba();
+               // message.Body = this.TextoEnvioFinPrueba();
             }
             message.BodyEncoding = Encoding.UTF8;
             message.IsBodyHtml = true;

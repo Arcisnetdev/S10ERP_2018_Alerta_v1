@@ -71,7 +71,7 @@ namespace S10ERP_2018.Frontend_Alerta_Resultado_Operativo_C
             }
             else
             {
-                message.Body = this.TextoEnvioFinPrueba();
+               // message.Body = this.TextoEnvioFinPrueba();
             }
 
             message.BodyEncoding = Encoding.UTF8;
